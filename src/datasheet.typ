@@ -56,7 +56,9 @@
 
   show raw: set text(font: "Martian Mono", weight: "light")
 
-  // make titlepage  
+  let date_str = datetime.today().display("[month repr:long] [day padding:none], [year]")
+
+  // make titlepage
   if theme == "classic" {
     image("/resources/logos/tt-logo-colourful.png")
 
@@ -69,8 +71,36 @@
       #link(repo-link)[#raw(repo-link)]
 
       #v(2.5cm)
-      #datetime.today().display("[month repr:long] [day padding:none], [year]")
+      #date_str
     ]
+  } else if theme == "bold" {
+    set page(fill: rgb("#9c6fb6"))
+
+    align(center+horizon)[#image("/resources/logos/tt-logo-white.svg", height: 60%)]
+
+    align(center)[
+      #text(size:32pt, white)[*Tiny Tapeout #shuttle Datasheet*]
+
+      #text(size: 16pt, weight: "medium", white)[
+        #show "https://": ""
+        #link(repo-link)[#raw(repo-link)]
+        #v(2.5cm)
+        #date_str
+      ]
+    ] 
+  } else if theme == "monochrome" {
+    align(center+horizon)[#image("/resources/logos/tt-logo-black.svg", height: 60%)]
+
+    align(center)[
+      #text(size:32pt)[*Tiny Tapeout #shuttle Datasheet*]
+
+      #text(size: 16pt, weight: "medium")[
+        #show "https://": ""
+        #link(repo-link)[#raw(repo-link)]
+        #v(2.5cm)
+        #date_str
+      ]
+    ] 
   }
   
 
@@ -78,32 +108,49 @@
   show heading.where(level: 2): set text(size: 22pt)
   show heading.where(level: 3): set text(size: 16pt)
 
+
+  // set footer page counter just for table of contents
+  set page(
+    footer: {
+      set text(size: 10pt)
+      align(right)[
+        #context strong(counter(page).display("i"))
+      ]
+    }
+  )
+
   // make table of contents
+  counter(page).update(1)
   show outline.entry.where(level: 1): this => {
     set block(above: 1em)
     strong(this)
   }
   outline(depth: 2, title: text(size: 24pt)[Table of Contents #v(1em)])
+  pagebreak(weak: true)
 
-
-  counter(page).update(0)
 
   if doc != [] {
       pagebreak(weak: true)
+      counter(page).update(1)
   }
 
   set page(
     footer: {
       set text(size: 10pt)
-      align(right)[
-        #box()[
-          // get the title of the current chapter
-          #let title = context query(selector(heading.where(level: 1)).before(here())).last().body
-          #emph(title)
-          #h(0.5cm)
-          #context strong(counter(page).display("1"))
-        ]
+
+      box(baseline: 0.25em)[
+          #image("/resources/logos/tt-logo-black.svg", height: 25%)
       ]
+
+      h(0.25cm)
+      emph(shuttle)
+
+      h(1fr)
+
+      // get the title of the current chapter
+      emph(context query(selector(heading.where(level: 1)).before(here())).last().body)
+      h(0.5cm)
+      context strong(counter(page).display("1"))
     }
   )
 
