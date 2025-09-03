@@ -18,22 +18,17 @@
 //     ] Chip ROM
 // ]
 
-  grid(
-    columns: (auto, 20%),
-    column-gutter: 1em,
-
-    heading(level: 2)[#title],
-    box(baseline: 1em)[by #author]
-  )
+  heading(level: 2)[#title]
+  [by *#author*]
 
   grid(
     columns: 3,
     column-gutter: 1em,
 
     // ffc936 good colour
-    rect(fill: rgb(0, 150, 150))[#text(white)[#address]],
-    rect(fill: rgb("#3e71e7"))[#text(white)[#clock]],
-    rect(fill: rgb("#db44b2"))[#text(white)[#type Project]],
+    rect(fill: rgb(0, 150, 150))[#text(white)[*#raw(address)*]],
+    rect(fill: rgb("#3e71e7"))[#text(white)[*#clock*]],
+    rect(fill: rgb("#db44b2"))[#text(white)[*#type Project*]],
     // rect(fill: rgb("#e63333"))[#text(white)[github.com]]
   )
 
@@ -79,9 +74,9 @@
   }
   
 
-  show heading.where(level: 1): set text(size: 24pt)
-  show heading.where(level: 2): set text(size: 20pt)
-  show heading.where(level: 3): set text(size: 18pt)
+  show heading.where(level: 1): set text(size: 28pt)
+  show heading.where(level: 2): set text(size: 22pt)
+  show heading.where(level: 3): set text(size: 16pt)
 
   // make table of contents
   show outline.entry.where(level: 1): this => {
@@ -94,7 +89,7 @@
   counter(page).update(0)
 
   if doc != [] {
-      pagebreak()
+      pagebreak(weak: true)
   }
 
   set page(
