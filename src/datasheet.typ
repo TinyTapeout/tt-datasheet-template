@@ -10,16 +10,26 @@
   doc
 ) = {
   
-  // heading(level: 2)[
-  //     #box(baseline: 0.25em)[
-  //       #rect(fill: rgb(0, 150, 150))[
-  //         #text(white)[*`0x0000`*]
-  //       ]
-  //     ] #title
-  // ]
-  // [by *#author*]
+  // make fake heading - this is the one that gets shown in the table of contents
+  // which has the nice address marker next to it
+  hide[
+    #block(above: 0em, below: 0em)[
+        #heading(level: 2)[
+            #box(baseline: 0.4em)[
+              #rect(fill: rgb(0, 150, 150))[
+                #text(white)[*#raw(address)*]
+              ]
+            ] #title
+        ]
+    ]
+  ]
 
-  heading(level: 2)[#title]
+  // make read heading and move into position
+  // this covers the fake one we just made
+  place(
+    dy: -26pt,
+    heading(level: 2, outlined: false)[#title]
+  )
   [by *#author*]
 
   grid(
