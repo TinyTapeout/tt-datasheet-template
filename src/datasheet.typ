@@ -154,5 +154,7 @@
     }
   )
 
+  set enum(indent: 1em)
+
   doc
 }
