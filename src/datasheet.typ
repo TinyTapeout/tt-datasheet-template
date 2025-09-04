@@ -26,7 +26,9 @@
     column-gutter: 1em,
 
     // ffc936 good colour
-    rect(fill: rgb(0, 150, 150))[#text(white)[*#raw(address)*]],
+    // NOTE: height retrieved from measure(rectangle), currently hardcoded
+    // TODO: encase in context to calculate it all properly
+    rect(fill: rgb(0, 150, 150), height: 18.4pt)[#text(white)[*#raw(address)*]],
     rect(fill: rgb("#3e71e7"))[#text(white)[*#clock*]],
     rect(fill: rgb("#db44b2"))[#text(white)[*#type Project*]],
     // rect(fill: rgb("#e63333"))[#text(white)[github.com]]
