@@ -159,7 +159,9 @@
     }
   )
 
+  // indent numbered and bullet point lists
   set enum(indent: 1em)
+  set list(indent: 1em)
 
   doc
 }
