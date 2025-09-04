@@ -39,6 +39,8 @@
     "#emph(description)"
   ]
 
+  set heading(offset: 2)
+
   doc
   pagebreak(weak: true)
 }
