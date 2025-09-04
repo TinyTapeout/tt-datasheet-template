@@ -10,13 +10,14 @@
   doc
 ) = {
   
-// #heading(level: 2)[
-//     #box(baseline: 0.3em)[
-//       #rect(fill: rgb(0, 150, 150))[
-//         #text(white)[`0x0000`]
-//       ]
-//     ] Chip ROM
-// ]
+  // heading(level: 2)[
+  //     #box(baseline: 0.25em)[
+  //       #rect(fill: rgb(0, 150, 150))[
+  //         #text(white)[*`0x0000`*]
+  //       ]
+  //     ] #title
+  // ]
+  // [by *#author*]
 
   heading(level: 2)[#title]
   [by *#author*]
