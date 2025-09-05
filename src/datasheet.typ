@@ -21,6 +21,7 @@
               ]
             ] #title
         ]
+      #label(repo-link)
     ]
   ]
 
