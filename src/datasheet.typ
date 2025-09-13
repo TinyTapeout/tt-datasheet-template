@@ -118,7 +118,21 @@
       ]
     ] 
   }
-  
+
+  // make tiling logo page after cover
+  [
+    #let pattern = tiling(
+      size: (3cm, 3cm),
+      spacing: (1cm, 1cm)
+    )[
+      #image("/resources/logos/tt-logo-light-grey.svg", width: 100%)
+    ]
+    #set page(      
+      // background: rect(width:100%, height: 100%, fill: pattern))
+      background: rotate(0deg, rect(width: 110%, height: 105%, inset: 0pt, outset: 0pt, stroke: none, fill: pattern))
+    )
+    #pagebreak(to: "odd")
+  ]
 
   show heading.where(level: 1): set text(size: 28pt)
   show heading.where(level: 2): set text(size: 22pt)
