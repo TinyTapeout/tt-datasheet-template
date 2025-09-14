@@ -75,6 +75,14 @@
   doc
 ) = {
 
+  set document(
+    title: [Tiny Tapeout #shuttle Datasheet]
+    // TODO:
+    // author: "?",
+    // description: "?",
+    // keywords: "?"
+  )
+
   set page(
     paper: "a4",
     margin: auto,
