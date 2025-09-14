@@ -199,5 +199,14 @@
   set enum(indent: 1em)
   set list(indent: 1em)
 
+  // format table so that empty cells show dark grey em dash
+  show table.cell: this => {
+    if this.body == [] {
+        align(center + horizon, text(fill: rgb("#2b2b2b"))[$dash.em$])
+    } else {
+      this
+    }
+  }
+
   doc
 }
