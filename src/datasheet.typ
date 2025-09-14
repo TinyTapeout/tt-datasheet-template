@@ -10,28 +10,36 @@
   doc
 ) = {
   
-  // make fake heading - this is the one that gets shown in the table of contents
-  // which has the nice address marker next to it
-  hide[
-    #block(above: 0em, below: 0em)[
-        #heading(level: 2)[
-            #box(baseline: 0.4em)[
-              #rect(fill: rgb(0, 150, 150))[
-                #text(white)[*#raw(address)*]
-              ]
-            ] #title
-        ]
-      #label(repo-link)
+  context {
+    // make fake heading - this is the one that gets shown in the table of contents
+    // which has the nice address marker next to it
+    // 
+    // width: page.width-2.5cm because a 2 line title was returning the wrong height
+    // meaning it would overrun with the author line
+    // NOTE: this might have to be tweaked a little more to get a good value
+    let fake_heading = hide[#block(above: 0em, below: 0em, width: page.width - 2.5cm)[
+          #heading(level: 2)[
+              #box(baseline: 0.4em)[
+                #rect(fill: rgb(0, 150, 150))[
+                  #text(white)[*#raw(address)*]
+                ]
+              ] #title
+          ]
+        #label(repo-link)
+      ]
     ]
-  ]
 
-  // make read heading and move into position
-  // this covers the fake one we just made
-  place(
-    dy: -26pt,
-    heading(level: 2, outlined: false)[#title]
-  )
-  [by *#author*]
+    let fake_heading_size = measure(fake_heading)
+    [#fake_heading]
+
+    // make real heading and move into position
+    // this covers the fake one we just made
+    place(
+      dy: -fake_heading_size.height,
+      heading(level: 2, outlined: false)[#title]
+    )
+    [#v(0.2em)by *#author*]
+  }
 
   grid(
     columns: 3,
@@ -67,7 +75,10 @@
   doc
 ) = {
 
-  set page(paper: "a4")
+  set page(
+    paper: "a4",
+    margin: auto,
+    )
   set text(font: "Montserrat", size: 12pt)
 
   show raw: set text(font: "Martian Mono", weight: "light")
