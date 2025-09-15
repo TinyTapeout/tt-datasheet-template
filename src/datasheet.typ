@@ -67,18 +67,42 @@
   pagebreak(weak: true)
 }
 
-#let splash_chapter_page(title, colour) = {
+#let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none) = {
   set page(fill: colour)
 
-  align(center + horizon)[
-    #hide(heading(level: 1, [Projects]))
-    
-    #context {
-      let big_heading = hide(heading(level: 1, title))
-      let big_heading_size = measure(big_heading)
+  set page(
+    footer: {
+      set text(size: 10pt)
+      set text(white) if invert-text-colour
 
+      let logo = if invert-text-colour {
+        image("/resources/logos/tt-logo-white.svg", height: 25%)
+      } else {
+        image("/resources/logos/tt-logo-black.svg", height: 25%)
+      }
+
+      box(baseline: 0.25em, logo)
+
+      h(0.25cm)
+      emph(footer-text)
+
+      h(1fr)
+
+      // get the title of the current chapter
+      emph(context query(selector(heading.where(level: 1)).before(here())).last().body)
+      h(0.5cm)
+      context strong(counter(page).display("1"))
+    }
+  )
+
+  align(center + horizon)[
+    #context {
+      let hidden_heading = hide(heading(level: 1, title))
+      let hidden_heading_size = measure(hidden_heading)
+      [#hidden_heading]
       place(
-        dy: -big_heading_size.height,
+        // dy: -big_heading_size.height,
+        dy: -2.5cm,
         text(size: 100pt, white)[
           *#title*
         ]
@@ -94,6 +118,7 @@
   shuttle: none,
   repo-link: none,
   theme: "classic",
+  projects: none,
 
   doc
 ) = {
@@ -237,6 +262,17 @@
     } else {
       this
     }
+  }
+
+  // make project splash page
+  if theme == "bold" {
+    splash_chapter_page("Projects", rgb("#9c6fb6"), invert-text-colour: true, footer-text: shuttle)
+  } else {
+    splash_chapter_page("Projects", white, footer-text: shuttle)
+  }
+
+  if projects != none {
+    projects
   }
 
   doc
