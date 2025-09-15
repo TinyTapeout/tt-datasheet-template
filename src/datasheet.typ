@@ -80,11 +80,18 @@
     badge(rgb("#db44b2"), strong(raw(type + " Project")))
   )
 
+  let danger_callout = none
+
   if danger-level != none {
     if danger-level == "medium" {
       badges.push(badge(rgb("#ff6b21"))[*`Medium Danger`*])
+
+      danger_callout = callout("warning", raw("This project can damage the ASIC under certain conditions."), raw(danger-reason))
+
     } else if danger-level == "high" {
       badges.push(badge(rgb("#ff0000"))[*`High Danger`*])
+
+      danger_callout = callout("danger", raw("This project will damage the ASIC."), raw(danger-reason))
     } else {
       panic([unexpected danger-level value (#danger-level)])
     }
@@ -116,6 +123,7 @@
   ]
 
   set heading(offset: 2)
+  danger_callout
 
   doc
   pagebreak(weak: true)
