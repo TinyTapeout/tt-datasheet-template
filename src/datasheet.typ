@@ -10,7 +10,10 @@
   description: [!!! Missing description !!!], 
   address: "0x0000", 
   clock: "No Clock", 
-  type: "HDL", 
+  type: "HDL",
+  wokwi-id: none,
+  danger-level: none,
+  danger-reason: none,
   
   doc
 ) = {
@@ -46,8 +49,24 @@
     [#v(0.2em)by *#author*]
   }
 
+  let badges = (
+    badge(rgb(0, 150, 150), strong(raw(address))),
+    badge(rgb("#3e71e7"), strong(raw(clock))),
+    badge(rgb("#db44b2"), strong(raw(type + " Project")))
+  )
+
+  if danger-level != none {
+    if danger-level == "medium" {
+      badges.push(badge(rgb("#ff6b21"))[*`Medium Danger`*])
+    } else if danger-level == "high" {
+      badges.push(badge(rgb("#ff0000"))[*`High Danger`*])
+    } else {
+      panic([unexpected danger-level value (#danger-level)])
+    }
+  }
+
   grid(
-    columns: 3,
+    columns: badges.len(),
     column-gutter: 1em,
 
     // ffc936 good colour
@@ -58,9 +77,10 @@
     // rect(fill: rgb("#db44b2"))[#text(white)[*#raw(type) `Project`*]],
     // rect(fill: rgb("#e63333"))[#text(white)[github.com]]
 
-    badge(rgb(0, 150, 150), strong(raw(address))),
-    badge(rgb("#3e71e7"), strong(raw(clock))),
-    badge(rgb("#db44b2"), strong(raw(type + " Project")))
+    ..badges
+    // badge(rgb(0, 150, 150), strong(raw(address))),
+    // badge(rgb("#3e71e7"), strong(raw(clock))),
+    // badge(rgb("#db44b2"), strong(raw(type + " Project")))
   )
 
   show "https://": ""
