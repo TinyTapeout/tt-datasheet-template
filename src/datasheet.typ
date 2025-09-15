@@ -3,6 +3,31 @@
   rect(fill: colour, doc)
 }
 
+#let callout(type, title, doc) = {
+
+  let title_colour
+  let body_colour
+
+  if type == "warning" {
+    title_colour = rgb("#ff6b21")
+    body_colour = rgb("#fd8448")
+  } else if type == "danger" {
+    title_colour = rgb("#ff0000")
+    body_colour = rgb("#ff4747")
+  } else {
+    panic([unknown callout type (#type)])
+  }
+
+  set text(white)
+
+  block(fill: body_colour, width: 100%, inset: 8pt)[
+    #block(fill: title_colour, width: 100%, outset: 8pt)[
+      #strong(title)
+    ]
+    #doc
+  ]
+}
+
 #let project(
   title: "Title", 
   author: "Author", 
