@@ -114,6 +114,9 @@
   pagebreak(weak: true)
 }
 
+#let _funding_content = state("_funding_content", [])
+#let _funding_alt_title = state("_funding_alt_title", [])
+
 #let datasheet(
   shuttle: none,
   repo-link: none,
@@ -264,6 +267,23 @@
     }
   }
 
+
+  // make funding/sponsor page
+  context {
+    let funding = _funding_content.final()
+    let alt_title = _funding_alt_title.final()
+
+    if funding != [] {
+      if alt_title != none {
+        heading(level: 1, alt_title)
+      } else {
+        heading(level: 1, "Funding")
+      }
+
+      funding
+    }
+  }
+
   // make project splash page
   if theme == "bold" {
     splash_chapter_page("Projects", rgb("#9c6fb6"), invert-text-colour: true, footer-text: shuttle)
@@ -276,4 +296,12 @@
   }
 
   doc
+}
+
+#let funding(doc, alt-title: none) = {
+  context {
+    _funding_content.update(doc)
+    _funding_alt_title.update(alt-title)
+  }
+  
 }
