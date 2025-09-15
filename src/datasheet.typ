@@ -67,6 +67,29 @@
   pagebreak(weak: true)
 }
 
+#let splash_chapter_page(title, colour) = {
+  set page(fill: colour)
+
+  align(center + horizon)[
+    #hide(heading(level: 1, [Projects]))
+    
+    #context {
+      let big_heading = hide(heading(level: 1, title))
+      let big_heading_size = measure(big_heading)
+
+      place(
+        dy: -big_heading_size.height,
+        text(size: 100pt, white)[
+          *#title*
+        ]
+      )
+    }
+  ]
+
+  set page(fill: none)
+  pagebreak(weak: true)
+}
+
 #let datasheet(
   shuttle: none,
   repo-link: none,
