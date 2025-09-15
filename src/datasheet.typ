@@ -115,8 +115,16 @@
     // badge(rgb("#db44b2"), strong(raw(type + " Project")))
   )
 
-  show "https://": ""
-  link(repo-link)[#raw(repo-link)]
+  {
+    show "https://": ""
+    link(repo-link)[#raw(repo-link)]
+
+    if wokwi-id != none {
+      let wokwi_link = "https://wokwi.com/projects/" + wokwi-id
+      link(wokwi_link)[\ #raw(wokwi_link)]
+    }
+  }
+
 
   align(center)[
     "#emph(description)"
