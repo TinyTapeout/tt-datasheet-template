@@ -144,11 +144,12 @@
 
 #let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none) = {
   set page(fill: colour)
+  set text(white) if invert-text-colour
 
   set page(
     footer: {
       set text(size: 10pt)
-      set text(white) if invert-text-colour
+      // set text(white) if invert-text-colour
 
       let logo = if invert-text-colour {
         image("/resources/logos/tt-logo-white.svg", height: 25%)
@@ -178,7 +179,7 @@
       place(
         // dy: -big_heading_size.height,
         dy: -2.5cm,
-        text(size: 100pt, white)[
+        text(size: 100pt)[
           *#title*
         ]
       )
@@ -199,6 +200,7 @@
   projects: none,
   show-pinouts: "latest",
   theme-override-colour: none,
+  date: datetime.today(),
 
   doc
 ) = {
@@ -219,7 +221,9 @@
 
   show raw: set text(font: "Martian Mono", weight: "light")
 
-  let date_str = datetime.today().display("[month repr:long] [day padding:none], [year]")
+  // let date_str = datetime.today().display("[month repr:long] [day padding:none], [year]")
+  let date_str = date.display("[month repr:long] [day padding:none], [year]")
+
 
   // make titlepage
   if theme == "classic" {
