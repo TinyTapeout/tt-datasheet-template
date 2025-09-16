@@ -86,7 +86,22 @@
       dy: -fake_heading_size.height,
       heading(level: 2, outlined: false)[#title]
     )
-    [#v(0.2em)by *#author*]
+
+    // display author names
+    // if 1, it is displayed as is
+    // if 2, it is displayed as "a & b"
+    // if >2, it is displayed as "a, b & c"
+    v(0.2em)
+    let author_text = []
+    author_text += [by *#author.at(0)*]
+
+    if author.len() == 2 {author_text += [ & *#author.at(1)*]}
+    else if author.len() > 2 {
+      let names = author.slice(1, author.len()-1)
+      for name in names {author_text += [, *#name*]}
+      author_text += [ & *#author.at(author.len()-1)*]
+    }
+    author_text
   }
 
   let badges = (
