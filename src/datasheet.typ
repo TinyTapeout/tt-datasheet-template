@@ -354,8 +354,11 @@
       }
 
       funding
+      pagebreak(weak: true)
     }
   }
+
+  include "../chapters/team.typ"
 
   // make project splash page
   if theme == "bold" {
