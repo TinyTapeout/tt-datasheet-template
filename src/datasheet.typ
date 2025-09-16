@@ -198,6 +198,7 @@
   theme: "classic",
   projects: none,
   show-pinouts: "latest",
+  theme-override-colour: none,
 
   doc
 ) = {
@@ -236,7 +237,8 @@
       #date_str
     ]
   } else if theme == "bold" {
-    set page(fill: rgb("#9c6fb6"))
+    set page(fill: rgb("#9c6fb6")) // default fill for bold theme
+    set page(fill: theme-override-colour) if theme-override-colour != none
 
     align(center+horizon)[#image("/resources/logos/tt-logo-white.svg", height: 60%)]
 
@@ -379,7 +381,11 @@
 
   // make project splash page
   if theme == "bold" {
-    splash_chapter_page("Projects", rgb("#9c6fb6"), invert-text-colour: true, footer-text: shuttle)
+    if theme-override-colour != none {
+      splash_chapter_page("Projects", theme-override-colour, invert-text-colour: true, footer-text: shuttle)
+    } else {
+      splash_chapter_page("Projects", rgb("#9c6fb6"), invert-text-colour: true, footer-text: shuttle)
+    }
   } else {
     splash_chapter_page("Projects", white, footer-text: shuttle)
   }
