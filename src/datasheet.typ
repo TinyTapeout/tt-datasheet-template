@@ -1,3 +1,5 @@
+#import "../chapters/pinout-tables.typ" as pins
+
 #let badge(colour, doc) = {
   set text(white)
   rect(fill: colour, doc)
@@ -195,6 +197,7 @@
   repo-link: none,
   theme: "classic",
   projects: none,
+  show-pinouts: "latest",
 
   doc
 ) = {
@@ -363,6 +366,16 @@
   include "../chapters/pinout.typ"
   pagebreak(weak: true)
   include "../chapters/tt-multiplexer.typ"
+  
+  if show-pinouts == "caravel" {
+    align(center, pins.caravel)
+    pins.dagger_legend
+  } else if show-pinouts == "latest" {
+    align(center, pins.new_frame)
+    pins.dagger_legend
+  } else {
+    panic([unknown pinout table referenced (#show-pinouts)])
+  }
 
   // make project splash page
   if theme == "bold" {
