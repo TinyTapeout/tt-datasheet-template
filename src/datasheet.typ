@@ -1,4 +1,5 @@
 #import "../chapters/pinout-tables.typ" as pins
+#import "colours.typ" as colours
 
 #let badge(colour, doc) = {
   set text(white)
@@ -11,16 +12,16 @@
   let body_colour
 
   if type == "warning" {
-    title_colour = rgb("#ff6b21")
-    body_colour = rgb("#fd8448")
+    title_colour = colours.WARNING_STRONG
+    body_colour = colours.WARNING_WEAK
 
   } else if type == "danger" {
-    title_colour = rgb("#ff0000")
-    body_colour = rgb("#ff4747")
+    title_colour = colours.DANGER_STRONG
+    body_colour = colours.DANGER_WEAK
 
   } else if type == "info" {
-    title_colour = rgb("#2766ef")
-    body_colour = rgb("#4b7be2")
+    title_colour = colours.INFO_STRONG
+    body_colour = colours.INFO_WEAK
 
   } else if type == "custom" {
     title_colour = custom-title-colour
@@ -68,7 +69,7 @@
     let fake_heading = hide[#block(above: 0em, below: 0em, width: page.width - 1.8cm)[
           #heading(level: 2)[
               #box(baseline: 0.4em)[
-                #rect(fill: rgb(0, 150, 150))[
+                #rect(fill: colours.BADGE_TEAL)[
                   #text(white)[*#raw(address)*]
                 ]
               ] #title
@@ -105,21 +106,21 @@
   }
 
   let badges = (
-    badge(rgb(0, 150, 150), strong(raw(address))),
-    badge(rgb("#3e71e7"), strong(raw(clock))),
-    badge(rgb("#db44b2"), strong(raw(type + " Project")))
+    badge(colours.BADGE_TEAL, strong(raw(address))),
+    badge(colours.BADGE_BLUE, strong(raw(clock))),
+    badge(colours.BADGE_PINK, strong(raw(type + " Project")))
   )
 
   let danger_callout = none
 
   if danger-level != none {
     if danger-level == "medium" {
-      badges.push(badge(rgb("#ff6b21"))[*`Medium Danger`*])
+      badges.push(badge(colours.WARNING_STRONG)[*`Medium Danger`*])
 
       danger_callout = callout("warning", raw("This project can damage the ASIC under certain conditions."), raw(danger-reason))
 
     } else if danger-level == "high" {
-      badges.push(badge(rgb("#ff0000"))[*`High Danger`*])
+      badges.push(badge(colours.DANGER_STRONG)[*`High Danger`*])
 
       danger_callout = callout("danger", raw("This project will damage the ASIC."), raw(danger-reason))
     } else {
@@ -268,7 +269,7 @@
       #date_str
     ]
   } else if theme == "bold" {
-    set page(fill: rgb("#9c6fb6")) // default fill for bold theme
+    set page(fill: colours.THEME_PLUM) // default fill for bold theme
     set page(fill: theme-override-colour) if theme-override-colour != none
 
     align(center+horizon)[#image("/resources/logos/tt-logo-white.svg", height: 60%)]
@@ -302,7 +303,7 @@
   // moved after title page since theme-override-colour would cause it to blend in with the background
   let link_colour = luma(0%) // TODO: get default colour using context?
   if not link-disable-colour {
-    link_colour = rgb("#2525df")
+    link_colour = colours.LINK_DEFAULT
     if link-override-colour != none {
       link_colour = link-override-colour
     }
@@ -383,7 +384,7 @@
   // format table so that empty cells show dark grey em dash
   show table.cell: this => {
     if this.body == [] {
-        align(center + horizon, text(fill: rgb("#2b2b2b"))[$dash.em$])
+        align(center + horizon, text(fill: colours.TABLE_GREY)[$dash.em$])
     } else {
       this
     }
@@ -428,7 +429,7 @@
     if theme-override-colour != none {
       splash_chapter_page("Projects", theme-override-colour, invert-text-colour: true, footer-text: shuttle)
     } else {
-      splash_chapter_page("Projects", rgb("#9c6fb6"), invert-text-colour: true, footer-text: shuttle)
+      splash_chapter_page("Projects", colours.THEME_PLUM, invert-text-colour: true, footer-text: shuttle)
     }
   } else {
     splash_chapter_page("Projects", white, footer-text: shuttle)
