@@ -211,6 +211,8 @@
   show-pinouts: "latest",
   theme-override-colour: none,
   date: datetime.today(),
+  link-disable-colour: true,
+  link-override-colour: none,
 
   doc
 ) = {
@@ -279,6 +281,19 @@
         #date_str
       ]
     ] 
+  }
+
+  // format link colour
+  // moved after title page since theme-override-colour would cause it to blend in with the background
+  let link_colour = luma(0%) // TODO: get default colour using context?
+  if not link-disable-colour {
+    link_colour = rgb("#2525df")
+    if link-override-colour != none {
+      link_colour = link-override-colour
+    }
+  }
+  show link: this => {
+    text(link_colour, this)
   }
 
   // make tiling logo page after cover
