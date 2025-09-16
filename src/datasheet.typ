@@ -424,6 +424,9 @@
     panic([unknown pinout table referenced (#show-pinouts)])
   }
 
+  pagebreak(weak: true)
+  include "../chapters/using-this-datasheet.typ"
+
   // make project splash page
   if theme == "bold" {
     if theme-override-colour != none {
