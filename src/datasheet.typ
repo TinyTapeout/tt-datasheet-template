@@ -359,6 +359,8 @@
   }
 
   include "../chapters/team.typ"
+  pagebreak(weak: true)
+  include "../chapters/pinout.typ"
 
   // make project splash page
   if theme == "bold" {
