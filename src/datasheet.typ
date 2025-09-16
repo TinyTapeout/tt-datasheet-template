@@ -50,7 +50,10 @@
     // width: page.width-2.5cm because a 2 line title was returning the wrong height
     // meaning it would overrun with the author line
     // NOTE: this might have to be tweaked a little more to get a good value
-    let fake_heading = hide[#block(above: 0em, below: 0em, width: page.width - 2.5cm)[
+
+    // TODO: should width == 100%? is that easier and does that fix the problem?
+    // 2025-09-15 -- it does not!! but i would love for it to work, so worth coming back at this
+    let fake_heading = hide[#block(above: 0em, below: 0em, width: page.width - 1.8cm)[
           #heading(level: 2)[
               #box(baseline: 0.4em)[
                 #rect(fill: rgb(0, 150, 150))[
