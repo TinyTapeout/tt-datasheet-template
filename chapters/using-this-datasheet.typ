@@ -52,7 +52,7 @@ In addition to #example_medium_danger and #example_high_danger badges being used
 
 A callout for #example_medium_danger may look something like:
 #callout("warning", 
-  `This project will damage the ASIC under certain conditions`, 
+  `This project will damage the ASIC under certain conditions.`, 
   `There is an error in the schematic which may lead to ASIC failure under certain clocking conditions.`
 )
 
