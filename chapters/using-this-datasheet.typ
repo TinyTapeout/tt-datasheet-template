@@ -1,4 +1,4 @@
-#import "@local/tt-datasheet:1.0.0": badge, callout
+#import "../src/datasheet.typ": badge, callout
 #import "../src/colours.typ" as colours
 
 
