@@ -5,7 +5,7 @@
   rect(fill: colour, doc)
 }
 
-#let callout(type, title, doc) = {
+#let callout(type, title, custom-title-colour: none, custom-body-colour: none, doc) = {
 
   let title_colour
   let body_colour
@@ -13,9 +13,19 @@
   if type == "warning" {
     title_colour = rgb("#ff6b21")
     body_colour = rgb("#fd8448")
+
   } else if type == "danger" {
     title_colour = rgb("#ff0000")
     body_colour = rgb("#ff4747")
+
+  } else if type == "info" {
+    title_colour = rgb("#2766ef")
+    body_colour = rgb("#4b7be2")
+
+  } else if type == "custom" {
+    title_colour = custom-title-colour
+    body_colour = custom-body-colour
+    
   } else {
     panic([unknown callout type (#type)])
   }
