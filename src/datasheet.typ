@@ -1,7 +1,11 @@
 #import "../chapters/pinout-tables.typ" as pins
 #import "colours.typ" as colours
 
-#let _footer(shuttle, invert-text-colour: false) = {
+#let _funding_content = state("_funding_content", [])
+#let _funding_alt_title = state("_funding_alt_title", [])
+#let _flip_footer_ordering = state("_flip_footer_ordering", false)
+
+#let _footer(shuttle, invert-text-colour: false, display-pg-as: "1", flip-ordering: false) = {
   // setup
   set text(size: 10pt)
   set text(white) if invert-text-colour
@@ -16,19 +20,32 @@
 
   // get the title of the current chapter
   let title = context query(selector(heading.where(level: 1)).before(here())).last().body
-  let pg_num = context counter(page).display("1")
+  let pg_num = context counter(page).display(display-pg-as)
 
   let TITLE_SPACING = 0.5cm
   let LOGO_SPACING = 0.25cm
+
+  let set_1 = {strong(pg_num); h(TITLE_SPACING); emph(title);  h(1fr);  emph(shuttle); h(LOGO_SPACING); logo}
+  let set_2 = {logo; h(LOGO_SPACING); emph(shuttle);  h(1fr);  emph(title); h(TITLE_SPACING); strong(pg_num)}
 
   // actual styling
   context {
     // alternate odd-even pages
     if calc.even(counter(page).get().first()) {
-      strong(pg_num); h(TITLE_SPACING); emph(title);  h(1fr);  emph(shuttle); h(LOGO_SPACING); logo
+      if flip-ordering {
+        set_2
+      } else {
+        set_1
+      }
+      // strong(pg_num); h(TITLE_SPACING); emph(title);  h(1fr);  emph(shuttle); h(LOGO_SPACING); logo
 
     } else {
-      logo; h(LOGO_SPACING); emph(shuttle);  h(1fr);  emph(title); h(TITLE_SPACING); strong(pg_num)
+      if flip-ordering {
+        set_1
+      } else {
+        set_2
+      }
+      // logo; h(LOGO_SPACING); emph(shuttle);  h(1fr);  emph(title); h(TITLE_SPACING); strong(pg_num)
     }
   }
 
@@ -208,7 +225,11 @@
 #let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none) = {
   set page(fill: colour)
   set text(white) if invert-text-colour
-  set page(footer: _footer(footer-text, invert-text-colour: invert-text-colour))
+  // set page(footer: _footer(footer-text, invert-text-colour: invert-text-colour))
+
+  set page(footer: context {
+    _footer(footer-text, invert-text-colour: invert-text-colour, flip-ordering: _flip_footer_ordering.final())
+  })
 
   align(center + horizon)[
     #context {
@@ -228,9 +249,6 @@
   set page(fill: none)
   pagebreak(weak: true)
 }
-
-#let _funding_content = state("_funding_content", [])
-#let _funding_alt_title = state("_funding_alt_title", [])
 
 #let datasheet(
   shuttle: none,
@@ -348,9 +366,8 @@
   show heading.where(level: 2): set text(size: 22pt)
   show heading.where(level: 3): set text(size: 16pt)
 
-  set page(footer: _footer(shuttle, invert-text-colour: false))
-
   // make table of contents
+  set page(footer: _footer(shuttle, invert-text-colour: false, display-pg-as: "i"))
   counter(page).update(1)
   show outline.entry.where(level: 1): this => {
     set block(above: 1em)
@@ -361,11 +378,18 @@
   outline(depth: 2, title: [Table of Contents])
   pagebreak(weak: true)
 
+  context {
+    _flip_footer_ordering.update(calc.even(counter(page).get().last()))
+  }
+
+  set page(footer: context {_footer(
+    shuttle, display-pg-as: "1", flip-ordering: _flip_footer_ordering.final()
+  )})
 
   if doc != [] {
       pagebreak(weak: true)
       // NOTE: disabled because the odd-even footer flipping stops working properly
-      // counter(page).update(1)
+      counter(page).update(1)
   }
 
   // indent numbered and bullet point lists
