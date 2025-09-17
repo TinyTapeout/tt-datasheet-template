@@ -1,6 +1,32 @@
 #import "../chapters/pinout-tables.typ" as pins
 #import "colours.typ" as colours
 
+#let _footer(shuttle, invert-text-colour: false) = {
+  set text(size: 10pt)
+  set text(white) if invert-text-colour
+
+  let logo = if invert-text-colour {
+    image("/resources/logos/tt-logo-white.svg", height: 25%)
+  } else {
+    image("/resources/logos/tt-logo-black.svg", height: 25%)
+  }
+
+  box(baseline: 0.25em, logo)
+
+  h(0.25cm)
+  emph(shuttle)
+
+  h(1fr)
+
+  // get the title of the current chapter
+  context {
+    let chapter_title = query(selector(heading.where(level: 1)).before(here())).last().body
+    emph(chapter_title)
+  }
+  h(0.5cm)
+  context strong(counter(page).display("1"))
+}
+
 #let badge(colour, doc) = {
   set text(white)
   rect(fill: colour, doc)
@@ -175,31 +201,7 @@
 #let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none) = {
   set page(fill: colour)
   set text(white) if invert-text-colour
-
-  set page(
-    footer: {
-      set text(size: 10pt)
-      // set text(white) if invert-text-colour
-
-      let logo = if invert-text-colour {
-        image("/resources/logos/tt-logo-white.svg", height: 25%)
-      } else {
-        image("/resources/logos/tt-logo-black.svg", height: 25%)
-      }
-
-      box(baseline: 0.25em, logo)
-
-      h(0.25cm)
-      emph(footer-text)
-
-      h(1fr)
-
-      // get the title of the current chapter
-      emph(context query(selector(heading.where(level: 1)).before(here())).last().body)
-      h(0.5cm)
-      context strong(counter(page).display("1"))
-    }
-  )
+  set page(footer: _footer(footer-text, invert-text-colour: invert-text-colour))
 
   align(center + horizon)[
     #context {
@@ -339,28 +341,7 @@
   show heading.where(level: 2): set text(size: 22pt)
   show heading.where(level: 3): set text(size: 16pt)
 
-  set page(
-    footer: {
-      set text(size: 10pt)
-
-      box(baseline: 0.25em)[
-          #image("/resources/logos/tt-logo-black.svg", height: 25%)
-      ]
-
-      h(0.25cm)
-      emph(shuttle)
-
-      h(1fr)
-
-      // get the title of the current chapter
-      context {
-        let chapter_title = query(selector(heading.where(level: 1)).before(here())).last().body
-        emph(chapter_title)
-      }
-      h(0.5cm)
-      context strong(counter(page).display("1"))
-    }
-  )
+  set page(footer: _footer(shuttle, invert-text-colour: false))
 
   // make table of contents
   counter(page).update(1)
