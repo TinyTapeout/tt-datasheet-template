@@ -121,24 +121,30 @@
 
     // TODO: should width == 100%? is that easier and does that fix the problem?
     // 2025-09-15 -- it does not!! but i would love for it to work, so worth coming back at this
-    let fake_heading = hide[#block(above: 0em, below: 0em, width: page.width - 1.8cm)[
-          #heading(level: 2)[
-              #box(baseline: 0.4em)[
-                #badge(colours.BADGE_TEAL, strong(raw(address)))
-              ] #title
-          ]
-        #label(repo-link)
+    let fake_heading = block(
+      above: 0em, below: 0em, 
+      width: page.width - 2.4cm, 
+      // width: 85%,
+      // fill:red, 
+      
+      heading(level: 2)[
+        #box(baseline: 0.4em)[
+          #badge(colours.BADGE_TEAL, strong(raw(address)))
       ]
-    ]
+      #title
+     ]
+    )
+
+    hide(fake_heading)
 
     let fake_heading_size = measure(fake_heading)
-    [#fake_heading]
+    // [#fake_heading_size]
 
     // make real heading and move into position
     // this covers the fake one we just made
     place(
       dy: -fake_heading_size.height,
-      heading(level: 2, outlined: false)[#title]
+      heading(level: 2, outlined: false, title)
     )
 
     // display author names
