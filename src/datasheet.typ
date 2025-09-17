@@ -158,11 +158,12 @@
     author_text
   }
 
-  let badges = (
-    badge(colours.BADGE_TEAL, strong(raw(address))),
-    badge(colours.BADGE_BLUE, strong(raw(clock))),
-    badge(colours.BADGE_PINK, strong(raw(type + " Project")))
-  )
+  let badges = (badge(colours.BADGE_TEAL, strong(raw(address))),)
+  if not clock == "No Clock" {
+    badges.push(badge(colours.BADGE_BLUE, strong(raw(clock))))
+  }
+  badges.push(badge(colours.BADGE_PINK, strong(raw(type + " Project"))))
+
 
   let danger_callout = none
 

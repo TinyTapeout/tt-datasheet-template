@@ -14,12 +14,13 @@ In general, each project should contain:
 - a link to the Wokwi project (if applicable)
 - a "How it works" section
 - a "How to test" section
+- a "External hardware" section (if applicable)
 - a pinout table for both digital & analog designs
 
 == Badges
 This datasheet uses "badges" to quickly convey some information about the project. A selection of these badges are available below.
 
-#let example_address_badge = box(baseline: 0.4em, badge(rgb(0, 150, 150), strong(raw("0x123a"))))
+#let example_address_badge = box(baseline: 0.4em, badge(rgb(0, 150, 150), strong(raw("--123"))))
 #let example_clock_badge = box(baseline: 0.4em, badge(colours.BADGE_BLUE, strong(raw("25.175 MHz"))))
 #let example_proj_wokwi = box(baseline: 0.4em, badge(colours.BADGE_PINK, strong(raw("Wokwi Project"))))
 #let example_proj_hdl = box(baseline: 0.4em, badge(colours.BADGE_PINK, strong(raw("HDL Project"))))
@@ -40,7 +41,7 @@ This datasheet uses "badges" to quickly convey some information about the projec
     [Badge], [Description]
   ),
 
-  example_address_badge, [Mux address of the project, shown in hexadecimal],
+  example_address_badge, [Mux address of the project, shown in decimal],
   example_clock_badge, [Clock frequency of the project, in Hz. May be truncated from actual value.],
   [#example_proj_hdl \ #example_proj_wokwi \ #example_proj_analog], [Project type, indicating if it was made with a HDL, Wokwi, or if it is analog.],
   [#example_medium_danger \ #example_high_danger], [Indicates the risk that the project presents to the ASIC. Medium danger projects can damage the ASIC under certain conditions, whilst high danger projects _will_ damage the ASIC.]
