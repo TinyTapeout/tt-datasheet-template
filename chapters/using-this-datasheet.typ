@@ -14,7 +14,7 @@ In general, each project should contain:
 - a link to the Wokwi project (if applicable)
 - a "How it works" section
 - a "How to test" section
-- a "External hardware" section (if applicable)
+- an "External hardware" section (if applicable)
 - a pinout table for both digital & analog designs
 
 == Badges
@@ -41,8 +41,8 @@ This datasheet uses "badges" to quickly convey some information about the projec
     [Badge], [Description]
   ),
 
-  example_address_badge, [Mux address of the project, shown in decimal],
-  example_clock_badge, [Clock frequency of the project, in Hz. May be truncated from actual value.],
+  example_address_badge, [Mux address of the project, in decimal.],
+  example_clock_badge, [Clock frequency of the project. May be truncated from actual value or omitted completely.],
   [#example_proj_hdl \ #example_proj_wokwi \ #example_proj_analog], [Project type, indicating if it was made with a HDL, Wokwi, or if it is analog.],
   [#example_medium_danger \ #example_high_danger], [Indicates the risk that the project presents to the ASIC. Medium danger projects can damage the ASIC under certain conditions, whilst high danger projects _will_ damage the ASIC.]
 )
