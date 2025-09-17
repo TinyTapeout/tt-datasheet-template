@@ -4,6 +4,7 @@
 #let _funding_content = state("_funding_content", [])
 #let _funding_alt_title = state("_funding_alt_title", [])
 #let _flip_footer_ordering = state("_flip_footer_ordering", false)
+#let _chip_render_content = state("_chip_render_content", [])
 
 #let _footer(shuttle, invert-text-colour: false, display-pg-as: "1", flip-ordering: false) = {
   // setup
@@ -451,6 +452,18 @@
 
   pagebreak(weak: true)
   include "../chapters/using-this-datasheet.typ"
+  pagebreak(weak: true)
+  context {
+    let chip_renders = _chip_render_content.final()
+
+    if chip_renders != [] {
+      // heading(level: 1, [Chip Renders])
+      // TODO: need to handle other theme cases
+      // and if theme-override-colour is not set
+      splash_chapter_page("Chip Renders", theme-override-colour, invert-text-colour: true, footer-text: shuttle)
+      chip_renders
+    }
+  }
 
   // make project splash page
   if theme == "bold" {
@@ -475,5 +488,10 @@
     _funding_content.update(doc)
     _funding_alt_title.update(alt-title)
   }
-  
+}
+
+#let renders(doc) = {
+  context {
+    _chip_render_content.update(doc)
+  }
 }
