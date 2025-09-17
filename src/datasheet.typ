@@ -331,35 +331,13 @@
     #pagebreak(to: "odd")
   ]
 
-  show heading.where(level: 1): set text(size: 28pt)
+  show heading.where(level: 1): this => {
+    set text(size: 28pt)
+    this
+    v(0.1cm)
+  }
   show heading.where(level: 2): set text(size: 22pt)
   show heading.where(level: 3): set text(size: 16pt)
-
-
-  // set footer page counter just for table of contents
-  set page(
-    footer: {
-      set text(size: 10pt)
-      align(right)[
-        #context strong(counter(page).display("i"))
-      ]
-    }
-  )
-
-  // make table of contents
-  counter(page).update(1)
-  show outline.entry.where(level: 1): this => {
-    set block(above: 1em)
-    strong(this)
-  }
-  outline(depth: 2, title: text(size: 24pt)[Table of Contents #v(1em)])
-  pagebreak(weak: true)
-
-
-  if doc != [] {
-      pagebreak(weak: true)
-      counter(page).update(1)
-  }
 
   set page(
     footer: {
@@ -375,11 +353,31 @@
       h(1fr)
 
       // get the title of the current chapter
-      emph(context query(selector(heading.where(level: 1)).before(here())).last().body)
+      context {
+        let chapter_title = query(selector(heading.where(level: 1)).before(here())).last().body
+        emph(chapter_title)
+      }
       h(0.5cm)
       context strong(counter(page).display("1"))
     }
   )
+
+  // make table of contents
+  counter(page).update(1)
+  show outline.entry.where(level: 1): this => {
+    set block(above: 1em)
+    strong(this)
+  }
+
+  // can't do direct styling of the title because otherwise the footer freaks out
+  outline(depth: 2, title: [Table of Contents])
+  pagebreak(weak: true)
+
+
+  if doc != [] {
+      pagebreak(weak: true)
+      counter(page).update(1)
+  }
 
   // indent numbered and bullet point lists
   set enum(indent: 1em)
