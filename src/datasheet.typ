@@ -2,29 +2,36 @@
 #import "colours.typ" as colours
 
 #let _footer(shuttle, invert-text-colour: false) = {
+  // setup
   set text(size: 10pt)
   set text(white) if invert-text-colour
 
-  let logo = if invert-text-colour {
-    image("/resources/logos/tt-logo-white.svg", height: 25%)
-  } else {
-    image("/resources/logos/tt-logo-black.svg", height: 25%)
-  }
-
-  box(baseline: 0.25em, logo)
-
-  h(0.25cm)
-  emph(shuttle)
-
-  h(1fr)
+  let logo = box(baseline: 0.25em, {
+    if invert-text-colour {
+      image("/resources/logos/tt-logo-white.svg", height: 25%)
+    } else {
+      image("/resources/logos/tt-logo-black.svg", height: 25%)
+    }
+  })
 
   // get the title of the current chapter
+  let title = context query(selector(heading.where(level: 1)).before(here())).last().body
+  let pg_num = context counter(page).display("1")
+
+  let TITLE_SPACING = 0.5cm
+  let LOGO_SPACING = 0.25cm
+
+  // actual styling
   context {
-    let chapter_title = query(selector(heading.where(level: 1)).before(here())).last().body
-    emph(chapter_title)
+    // alternate odd-even pages
+    if calc.even(counter(page).get().first()) {
+      strong(pg_num); h(TITLE_SPACING); emph(title);  h(1fr);  emph(shuttle); h(LOGO_SPACING); logo
+
+    } else {
+      logo; h(LOGO_SPACING); emph(shuttle);  h(1fr);  emph(title); h(TITLE_SPACING); strong(pg_num)
+    }
   }
-  h(0.5cm)
-  context strong(counter(page).display("1"))
+
 }
 
 #let badge(colour, doc) = {
@@ -357,7 +364,8 @@
 
   if doc != [] {
       pagebreak(weak: true)
-      counter(page).update(1)
+      // NOTE: disabled because the odd-even footer flipping stops working properly
+      // counter(page).update(1)
   }
 
   // indent numbered and bullet point lists
