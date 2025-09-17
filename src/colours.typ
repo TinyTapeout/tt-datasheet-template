@@ -11,6 +11,7 @@
 #let TABLE_GREY = rgb("#2b2b2b")
 
 #let BADGE_TEAL = rgb("#009696")
+#let BADGE_MUTED_TEAL = rgb("#007474")
 #let BADGE_BLUE = rgb("#3e71e7")
 #let BADGE_PINK = rgb("#db44b2")
 

@@ -51,8 +51,13 @@
 
 }
 
+// NOTE: any "-" characters will get converted into coloured zeroes
 #let badge(colour, doc) = {
   set text(white)
+  show "-": this => {
+    set text(colours.BADGE_MUTED_TEAL)
+    [0]
+  }
   rect(fill: colour, doc)
 }
 
@@ -119,9 +124,7 @@
     let fake_heading = hide[#block(above: 0em, below: 0em, width: page.width - 1.8cm)[
           #heading(level: 2)[
               #box(baseline: 0.4em)[
-                #rect(fill: colours.BADGE_TEAL)[
-                  #text(white)[*#raw(address)*]
-                ]
+                #badge(colours.BADGE_TEAL, strong(raw(address)))
               ] #title
           ]
         #label(repo-link)
