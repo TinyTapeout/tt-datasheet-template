@@ -243,19 +243,17 @@
   })
 
   align(center + horizon)[
-    #context {
-      let hidden_heading = hide(heading(level: 1, title))
-      let hidden_heading_size = measure(hidden_heading)
-      [#hidden_heading]
-      place(
-        // dy: -big_heading_size.height,
-        dy: -2.5cm,
-        text(size: 100pt)[
-          *#title*
-        ]
-      )
-    }
+    #block(text(size: 100pt, strong(title)))
   ]
+
+  let h = heading(level: 1, title)
+  context {
+    let h_size = measure(h)
+    place(
+      dy: -h_size.height,
+      hide(h)
+    )
+  }
 
   set page(fill: none)
   pagebreak(weak: true)
