@@ -479,6 +479,18 @@
   }
 
   doc
+
+  pagebreak(weak: true)
+
+  // make call to action
+  {
+    set page(
+      fill: theme-override-colour,
+      footer: none
+    )
+    set text(white)
+    include "../chapters/make-your-own.typ"
+  }
 }
 
 #let funding(doc, alt-title: none) = {
