@@ -1,0 +1,58 @@
+{
+    "art": {
+        "TT-POCA-01-A": {
+            "title": "MPW-6 \"Hack SoC\"",
+            "designer": "",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-A.jpg"
+        },
+        "TT-POCA-01-B": {
+            "title": "MPW-2 poly layers",
+            "designer": "Matt Venn",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-B.jpg"
+        },
+        "TT-POCA-01-C": {
+            "title": "Detail - Fibonacci design (MPW-2)",
+            "designer": "Konrad Rzeszutek Wilk",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-C.jpg"
+        },
+        "TT-POCA-01-D": {
+            "title": "555 render (TT06)",
+            "designer": "Vincent Fusco",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-D.jpg"
+        },
+        "TT-POCA-01-E": {
+            "title": "SkullFET render (MPW-4)",
+            "designer": "Uri Shaked",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-E.jpg"
+        },
+        "TT-POCA-01-F": {
+            "title": "VGA clock render",
+            "designer": "Matt Venn",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-F.jpg"
+        },
+        "TT-POCA-01-G": {
+            "title": "VGA clock render",
+            "designer": "Matt Venn",
+            "artist": "Máximo Balestrini",
+            "file": "TT-POCA-01-G.jpg"
+        },
+        "TT-POCA-01-H": {
+            "title": "TT06 IC - decapped",
+            "designer": "Tiny Tapeout",
+            "artist": "Texplained",
+            "file": "TT-POCA-01-H.jpg"
+        },
+        "TT-POCA-01-I": {
+            "title": "Oscillating Bones",
+            "designer": "Uri Shaked",
+            "artist": "Texplained",
+            "file": "TT-POCA-01-I.jpg"
+        }
+    }
+}
