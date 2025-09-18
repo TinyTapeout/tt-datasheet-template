@@ -505,3 +505,53 @@
     _chip_render_content.update(doc)
   }
 }
+
+#let art(id, rot: 90deg, height: auto, width: auto) = {
+
+  let art_manifest = json("../resources/artwork/manifest.json")
+  let details = art_manifest.at("art").at(id)
+
+  set text(fill: white, size: 8pt)
+
+  page(
+    paper: "a4",
+    margin: 0pt,
+    footer: none,
+  )[
+    #align(
+      center + horizon,
+      
+      rotate(rot, 
+        reflow: true,
+      )[
+        #image(
+          "../resources/artwork/" + details.file,
+          height: height,
+          width: width,
+        )
+      ]
+    )
+
+    #context {
+      place(
+        bottom + left,
+        box(
+          fill: colours.ARTWORK_GREY_INFO,
+          inset: 4pt,
+          width: page.width
+        )[
+          #if details.title != "" {
+            details.title
+          } else {panic("missing title for artwork!")}
+          $dash.em$
+          #if details.designer != "" [
+            Designed by #details.designer.
+          ]
+          #if details.artist != "" [
+            Illustrated by #details.artist.
+          ]
+        ]
+      )
+    }
+  ]
+}
