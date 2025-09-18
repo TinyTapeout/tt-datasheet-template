@@ -50,7 +50,6 @@ This datasheet uses "badges" to quickly convey some information about the projec
 
 == Callouts
 In addition to #example_medium_danger and #example_high_danger badges being used, a callout is placed before the project documentation begins to alert the user.
-#pagebreak(weak: true)
 
 A callout for #example_medium_danger may look something like:
 #callout("warning", 

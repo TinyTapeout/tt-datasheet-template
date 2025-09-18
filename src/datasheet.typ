@@ -414,43 +414,6 @@
     }
   }
 
-
-  // make funding/sponsor page
-  context {
-    let funding = _funding_content.final()
-    let alt_title = _funding_alt_title.final()
-
-    if funding != [] {
-      if alt_title != none {
-        heading(level: 1, alt_title)
-      } else {
-        heading(level: 1, "Funding")
-      }
-
-      funding
-      pagebreak(weak: true)
-    }
-  }
-
-  include "../chapters/team.typ"
-  pagebreak(weak: true)
-  include "../chapters/pinout.typ"
-  pagebreak(weak: true)
-  include "../chapters/tt-multiplexer.typ"
-  
-  if show-pinouts == "caravel" {
-    align(center, pins.caravel)
-    pins.dagger_legend
-  } else if show-pinouts == "latest" {
-    align(center, pins.new_frame)
-    pins.dagger_legend
-  } else {
-    panic([unknown pinout table referenced (#show-pinouts)])
-  }
-
-  pagebreak(weak: true)
-  include "../chapters/using-this-datasheet.typ"
-  pagebreak(weak: true)
   context {
     let chip_renders = _chip_render_content.final()
 
@@ -480,6 +443,43 @@
 
   doc
 
+  pagebreak(weak: true)
+  include "../chapters/pinout.typ"
+  pagebreak(weak: true)
+  include "../chapters/tt-multiplexer.typ"
+  
+  if show-pinouts == "caravel" {
+    align(center, pins.caravel)
+    pins.dagger_legend
+  } else if show-pinouts == "latest" {
+    align(center, pins.new_frame)
+    pins.dagger_legend
+  } else {
+    panic([unknown pinout table referenced (#show-pinouts)])
+  }
+  pagebreak(weak: true)
+
+
+  // make funding/sponsor page
+  context {
+    let funding = _funding_content.final()
+    let alt_title = _funding_alt_title.final()
+
+    if funding != [] {
+      if alt_title != none {
+        heading(level: 1, alt_title)
+      } else {
+        heading(level: 1, "Funding")
+      }
+
+      funding
+      pagebreak(weak: true)
+    }
+  }
+
+  include "../chapters/team.typ"
+  pagebreak(weak: true)
+  include "../chapters/using-this-datasheet.typ"
   pagebreak(weak: true)
 
   // make call to action
