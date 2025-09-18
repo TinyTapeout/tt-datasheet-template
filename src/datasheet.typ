@@ -506,7 +506,7 @@
   }
 }
 
-#let art(id, rot: 90deg, height: auto, width: auto) = {
+#let art(id, rot: 90deg, height: 100%, width: auto) = {
 
   let art_manifest = json("../resources/artwork/manifest.json")
   let details = art_manifest.at("art").at(id)
@@ -541,14 +541,14 @@
           width: page.width
         )[
           #if details.title != "" {
-            details.title
+            strong(details.title)
           } else {panic("missing title for artwork!")}
-          $dash.em$
+          *$dash.em$*
           #if details.designer != "" [
-            Designed by #details.designer.
+            *Designed by #details.designer.*
           ]
           #if details.artist != "" [
-            Illustrated by #details.artist.
+            *Illustrated by #details.artist.*
           ]
         ]
       )
