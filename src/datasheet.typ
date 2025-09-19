@@ -6,6 +6,8 @@
 #let _funding_alt_title = state("_funding_alt_title", [])
 #let _flip_footer_ordering = state("_flip_footer_ordering", false)
 #let _chip_render_content = state("_chip_render_content", [])
+#let _chip_render_sponsor_text = state("_chip_render_sponsor_text", none)
+#let _chip_render_sponsor_logo = state("_chip_render_sponsor_logo", none)
 
 #let _footer(shuttle, invert-text-colour: false, display-pg-as: "1", flip-ordering: false) = {
   // setup
@@ -223,7 +225,7 @@
   pagebreak(weak: true)
 }
 
-#let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none) = {
+#let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none, additional-content: none) = {
   set page(fill: colour)
   set text(white) if invert-text-colour
   // set page(footer: _footer(footer-text, invert-text-colour: invert-text-colour))
@@ -245,6 +247,15 @@
     )
   }
 
+  if additional-content != none {
+    set text(black)
+
+    place(
+      center + bottom,
+      block(fill: white, inset: 10pt, additional-content)
+    )
+  }
+
   set page(fill: none)
   pagebreak(weak: true)
 }
@@ -259,6 +270,7 @@
   date: datetime.today(),
   link-disable-colour: true,
   link-override-colour: none,
+  chip-viewer-link: none,
 
   doc
 ) = {
@@ -411,10 +423,73 @@
     let chip_renders = _chip_render_content.final()
 
     if chip_renders != [] {
-      // heading(level: 1, [Chip Renders])
       // TODO: need to handle other theme cases
       // and if theme-override-colour is not set
-      splash_chapter_page("Chip Renders", theme-override-colour, invert-text-colour: true, footer-text: shuttle)
+
+      let qr = none
+      let qr_grid = none
+
+      if chip-viewer-link != none {
+        qr =  tiaoma.qrcode(chip-viewer-link, options: ("scale": 2.0, "fg-color": theme-override-colour))
+      
+        qr_grid = grid(
+          columns: 1,
+          rows: 3,
+          align: center + horizon,
+          row-gutter: 1em,
+
+          [online chip viewer],
+          qr,
+
+          // make url be the width of the QR code
+          context {
+            block(width: measure(qr).width, link(chip-viewer-link, text(black, chip-viewer-link.trim("https://", at: start))))
+          }
+        )
+      }
+
+
+      let sponsor_grid = none
+      if _chip_render_sponsor_text.final() != none and _chip_render_sponsor_logo.final() != none {
+        sponsor_grid = grid(
+          columns: 1,
+          rows: 3,
+          align: center + horizon,
+          row-gutter: 1em,
+
+          _chip_render_sponsor_text.final(),
+          _chip_render_sponsor_logo.final(),
+          []
+        ) 
+      }
+
+      let content = none
+      if sponsor_grid == none {
+        content = grid(
+          columns: 1, rows: 1,
+          column-gutter: 1em, row-gutter: 1em,
+          align: center + horizon,
+
+          qr_grid
+        )
+      } else if sponsor_grid != none {
+        content = grid(
+          columns: 2, rows: 1,
+          column-gutter: 1em, row-gutter: 1em,
+          align: center + horizon,
+          
+          sponsor_grid, qr_grid
+        )
+      }
+
+      splash_chapter_page(
+        "Chip Renders", 
+        theme-override-colour, 
+        invert-text-colour: true, 
+        footer-text: shuttle, 
+        additional-content: content
+      )
+      
       chip_renders
     }
   }
@@ -493,9 +568,11 @@
   }
 }
 
-#let renders(doc) = {
+#let renders(sponsor-text: none, sponsor-logo: none, doc) = {
   context {
     _chip_render_content.update(doc)
+    _chip_render_sponsor_text.update(sponsor-text)
+    _chip_render_sponsor_logo.update(sponsor-logo)
   }
 }
 
