@@ -576,10 +576,11 @@
   }
 }
 
-#let art(id, rot: 90deg, height: 100%, width: auto) = {
+#let art(id, rot: 90deg) = {
 
-  let art_manifest = json("../resources/artwork/manifest.json")
-  let details = art_manifest.at("art").at(id)
+  let art_manifest = json("/resources/manifest.json").at("art")
+  let details = art_manifest.at(id)
+  let path_suffix = art_manifest.at("PATH_SUFFIX")
 
   set text(fill: white, size: 8pt)
 
@@ -595,9 +596,8 @@
         reflow: true,
       )[
         #image(
-          "../resources/artwork/" + details.file,
-          height: height,
-          width: width,
+          "/resources/" + path_suffix + details.file,
+          height: 100%,
         )
       ]
     )
@@ -624,4 +624,23 @@
       )
     }
   ]
+}
+
+#let get-image-by-id(type, id, ..args) = {
+  let manifest = json("/resources/manifest.json")
+  let details = none
+
+  // should correspond to keys in /resources/manifest.json
+  if type not in ("asset", "art") {
+    panic("type of asset not found")
+  }
+
+  let path_suffix = manifest.at(type).at("PATH_SUFFIX")
+
+  if id == "" {
+    panic("no id given")
+  }
+
+  details = manifest.at(type).at(id)
+  image("/resources/" + path_suffix + details.file, ..args)
 }

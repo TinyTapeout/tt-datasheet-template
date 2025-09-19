@@ -1,5 +1,6 @@
 {
     "art": {
+        "PATH_SUFFIX": "artwork/",
         "TT-POCA-01-A": {
             "title": "MPW-6 \"Hack SoC\"",
             "designer": "",
@@ -53,6 +54,15 @@
             "designer": "Uri Shaked",
             "artist": "Texplained",
             "file": "TT-POCA-01-I.jpg"
+        }
+    },
+    "asset": {
+        "PATH_SUFFIX": "logos/",
+        "efabless-logo": {
+            "file": "efabless-logo.png"
+        },
+        "texplained-logo": {
+            "file": "texplained-hardware-security.jpg"
         }
     }
 }
