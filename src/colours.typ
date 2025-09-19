@@ -19,3 +19,5 @@
 #let THEME_TT06_PINK = rgb("#ec789d")
 
 #let ARTWORK_GREY_INFO = rgb("#2b2b2bda")
+
+#let UNUSED_GOLD = rgb("#ffc936")
