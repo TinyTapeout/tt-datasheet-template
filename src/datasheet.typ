@@ -1,3 +1,4 @@
+#import "@preview/tiaoma:0.3.0"
 #import "../chapters/pinout-tables.typ" as pins
 #import "colours.typ" as colours
 
