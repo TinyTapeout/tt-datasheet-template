@@ -455,19 +455,9 @@
       if chip-viewer-link != none {
         qr =  tiaoma.qrcode(chip-viewer-link, options: ("scale": 2.0, "fg-color": theme-override-colour))
       
-        qr_grid = grid(
-          columns: 1,
-          rows: 3,
-          align: center + horizon,
-          row-gutter: 1em,
-
-          [online chip viewer],
-          qr,
-
-          // make url be the width of the QR code
-          context {
-            block(width: measure(qr).width, link(chip-viewer-link, text(black, chip-viewer-link.trim("https://", at: start))))
-          }
+        qr_grid = annotated-qrcode(
+          chip-viewer-link, "online chip viewer",  
+          tiaoma-args: ("scale": 2.0, "fg-color": theme-override-colour)
         )
       }
 
