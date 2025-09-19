@@ -384,7 +384,10 @@
   }
 
   // can't do direct styling of the title because otherwise the footer freaks out
-  outline(depth: 2, title: [Table of Contents])
+  outline(
+    depth: 2,
+    title: heading(level: 1, outlined: false, bookmarked: true)[Table of Contents]
+  )
   pagebreak(weak: true)
 
   context {
