@@ -129,7 +129,7 @@
       // width: 85%,
       // fill:red, 
       
-      heading(level: 2)[
+      heading(level: 2, outlined: true, bookmarked: false)[
         #box(baseline: 0.4em)[
           #badge(colours.BADGE_TEAL, strong(raw(address)))
       ]
@@ -146,7 +146,7 @@
     // this covers the fake one we just made
     place(
       dy: -fake_heading_size.height,
-      heading(level: 2, outlined: false, title)
+      heading(level: 2, outlined: false, bookmarked: true, title)
     )
 
     // display author names
@@ -215,10 +215,11 @@
     "#emph(description)"
   ]
 
-  set heading(offset: 2)
   danger_callout
 
+  set heading(offset: 2)
   doc
+
   pagebreak(weak: true)
 }
 
