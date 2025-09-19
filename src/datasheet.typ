@@ -260,6 +260,29 @@
   pagebreak(weak: true)
 }
 
+#let annotated-qrcode(url, title, tiaoma-args: (:)) = {
+  let qr = tiaoma.qrcode(url, options: tiaoma-args)
+
+  grid(
+    columns: 1,
+    rows: 3,
+    align: center + horizon,
+    row-gutter: 1em,
+
+    title,
+    qr,
+
+    // make url be the width of the QR code
+    context {
+      block(
+        width: measure(qr).width, 
+        height: auto, 
+        breakable: false, 
+        link(url, text(black, url.trim("https://", at: start))))
+    }
+  )
+}
+
 #let datasheet(
   shuttle: none,
   repo-link: none,
