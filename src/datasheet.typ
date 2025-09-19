@@ -105,7 +105,7 @@
   author: "Author", 
   repo-link: "!!! missing repository link !!!", 
   description: [!!! Missing description !!!], 
-  address: "0x0000", 
+  address: "----", 
   clock: "No Clock", 
   type: "HDL",
   wokwi-id: none,
