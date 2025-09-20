@@ -609,7 +609,7 @@
   let details = art_manifest.at(id)
   let path_suffix = art_manifest.at("PATH_SUFFIX")
 
-  set text(fill: white, size: 8pt)
+  set text(fill: white, size: 10pt)
 
   page(
     paper: "a4",
