@@ -115,58 +115,37 @@
   doc
 ) = {
   
-  context {
-    // make fake heading - this is the one that gets shown in the table of contents
-    // which has the nice address marker next to it
-    // 
-    // width: page.width-2.5cm because a 2 line title was returning the wrong height
-    // meaning it would overrun with the author line
-    // NOTE: this might have to be tweaked a little more to get a good value
-
-    // TODO: should width == 100%? is that easier and does that fix the problem?
-    // 2025-09-15 -- it does not!! but i would love for it to work, so worth coming back at this
-    let fake_heading = block(
-      above: 0em, below: 0em, 
-      width: page.width - 2.4cm, 
-      // width: 85%,
-      // fill:red, 
-      
-      heading(level: 2, outlined: true, bookmarked: false)[
-        #box(baseline: 0.4em)[
-          #badge(colours.BADGE_TEAL, strong(raw(address)))
-      ]
+  // make fake heading - this is the one that gets shown in the table of contents
+  // which has the nice address marker next to it
+  let fake_heading = block(      
+    heading(level: 2, outlined: true, bookmarked: false)[
+      #box(baseline: 0.4em, badge(colours.BADGE_TEAL, strong(raw(address))))
       #title
-     ]
-    )
+    ]
+  )
+  
+  // move fake heading so it doesn't affect layout
+  place(top + left, hide(fake_heading))
 
-    hide(fake_heading)
+  // make heading thats seen on the project page
+  heading(level: 2, outlined: false, bookmarked: true, title)
 
-    let fake_heading_size = measure(fake_heading)
-    // [#fake_heading_size]
 
-    // make real heading and move into position
-    // this covers the fake one we just made
-    place(
-      dy: -fake_heading_size.height,
-      heading(level: 2, outlined: false, bookmarked: true, title)
-    )
+  // display author names
+  // if 1, it is displayed as is
+  // if 2, it is displayed as "a & b"
+  // if >2, it is displayed as "a, b & c"
+  v(0.2em)
+  let author_text = []
+  author_text += [by *#author.at(0)*]
 
-    // display author names
-    // if 1, it is displayed as is
-    // if 2, it is displayed as "a & b"
-    // if >2, it is displayed as "a, b & c"
-    v(0.2em)
-    let author_text = []
-    author_text += [by *#author.at(0)*]
-
-    if author.len() == 2 {author_text += [ & *#author.at(1)*]}
-    else if author.len() > 2 {
-      let names = author.slice(1, author.len()-1)
-      for name in names {author_text += [, *#name*]}
-      author_text += [ & *#author.at(author.len()-1)*]
-    }
-    author_text
+  if author.len() == 2 {author_text += [ & *#author.at(1)*]}
+  else if author.len() > 2 {
+    let names = author.slice(1, author.len()-1)
+    for name in names {author_text += [, *#name*]}
+    author_text += [ & *#author.at(author.len()-1)*]
   }
+  author_text
 
   let badges = (badge(colours.BADGE_TEAL, strong(raw(address))),)
   if not clock == "No Clock" {
