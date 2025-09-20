@@ -179,16 +179,14 @@
   )
 
   {
-    show "https://": ""
-
     // hardcode these repo links to be black
     // and not follow link-override-colour
-    link(repo-link, text(black, raw(repo-link)))
+    link(repo-link, text(black, raw(repo-link.trim("https://", at: start))))
 
     if wokwi-id != none {
       let wokwi_link = "https://wokwi.com/projects/" + wokwi-id
       parbreak()
-      link(wokwi_link, text(black, raw(wokwi_link)))
+      link(wokwi_link, text(black, raw(wokwi_link.trim("https://", at: start))))
     }
   }
 
