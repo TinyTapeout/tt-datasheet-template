@@ -324,63 +324,43 @@
     // keywords: "?"
   )
 
-  set page(
-    paper: "a4",
-    margin: auto,
-    )
+  set page(paper: "a4", margin: auto)
   set text(font: "Montserrat", size: 12pt)
-
   show raw: set text(font: "Martian Mono", weight: "light")
 
-  // let date_str = datetime.today().display("[month repr:long] [day padding:none], [year]")
   let date_str = date.display("[month repr:long] [day padding:none], [year]")
 
+  let cover-text = {
+    align(center)[
+      #text(size: 32pt)[*Tiny Tapeout #shuttle Datasheet*]
+      
+      #set text(weight: "medium")
+      #link(repo-link, text(size: 16pt, raw(repo-link.trim("https://", at: start))))
+      
+      #v(2.5cm)
+      #text(size: 16pt, date_str)
+    ]
+  }
 
   // make titlepage
   if theme == "classic" {
     image("/resources/logos/tt-logo-colourful.png")
-
-    align(center)[
-      #text(size: 32pt)[*Tiny Tapeout #shuttle Datasheet*]
-
-      #set text(size: 16pt)
-      // make url pretty without having to explicitly pass it
-      #show "https://": ""
-      #link(repo-link)[#raw(repo-link)]
-
-      #v(2.5cm)
-      #date_str
-    ]
+    cover-text
+    
   } else if theme == "bold" {
     set page(fill: colours.THEME_PLUM) // default fill for bold theme
     set page(fill: theme-override-colour) if theme-override-colour != none
 
     align(center+horizon)[#image("/resources/logos/tt-logo-white.svg", height: 60%)]
 
-    align(center)[
-      #text(size:32pt, white)[*Tiny Tapeout #shuttle Datasheet*]
+    set text(white)
+    cover-text
 
-      #text(size: 16pt, weight: "medium", white)[
-        #show "https://": ""
-        #link(repo-link)[#raw(repo-link)]
-        #v(2.5cm)
-        #date_str
-      ]
-    ] 
   } else if theme == "monochrome" {
     align(center+horizon)[#image("/resources/logos/tt-logo-black.svg", height: 60%)]
-
-    align(center)[
-      #text(size:32pt)[*Tiny Tapeout #shuttle Datasheet*]
-
-      #text(size: 16pt, weight: "medium")[
-        #show "https://": ""
-        #link(repo-link)[#raw(repo-link)]
-        #v(2.5cm)
-        #date_str
-      ]
-    ] 
+    cover-text
   }
+
 
   // format link colour
   // moved after title page since theme-override-colour would cause it to blend in with the background
