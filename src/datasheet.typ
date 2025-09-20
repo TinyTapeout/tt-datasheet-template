@@ -342,7 +342,7 @@
   set document(
     title: [Tiny Tapeout #shuttle Datasheet],
     author: "Tiny Tapeout & Contributors",
-    description: [The official Tiny Tapeout datasheet for #shuttle.]
+    description: [The official Tiny Tapeout datasheet for #shuttle. Template by Kristaps Jurkans (bluesky/\@krisj.dev)]
   )
 
   set page(paper: "a4", margin: auto)
