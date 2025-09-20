@@ -458,7 +458,7 @@
   context {
     let chip_renders = _chip_render_content.final()
 
-    if chip_renders != [] {
+    if chip_renders != none {
       // TODO: need to handle other theme cases
       // and if theme-override-colour is not set
 
@@ -525,14 +525,15 @@
     }
   }
 
-  // make project splash page
-  if theme == "bold" {
-    splash_chapter_page("Projects", page-colour: selected_theme_colour, invert-text-colour: true, footer-text: shuttle)
-  } else {
-    splash_chapter_page("Projects", footer-text: shuttle)
-  }
 
   if projects != none {
+    // make project splash page
+    if theme == "bold" {
+      splash_chapter_page("Projects", page-colour: selected_theme_colour, invert-text-colour: true, footer-text: shuttle)
+    } else {
+      splash_chapter_page("Projects", footer-text: shuttle)
+    }
+    
     projects
   }
 
