@@ -408,6 +408,8 @@
     shuttle, display-pg-as: "1", flip-ordering: _flip_footer_ordering.final()
   )})
 
+  set par(justify: true)
+
   if doc != [] {
       pagebreak(weak: true)
       // NOTE: disabled because the odd-even footer flipping stops working properly
