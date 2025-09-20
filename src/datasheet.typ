@@ -665,3 +665,18 @@
   details = manifest.at(type).at(id)
   image("/resources/" + path_suffix + details.file, ..args)
 }
+
+#let add-render(title, subtitle: none, img) = {
+  page(
+    align(center, grid(
+        columns: 1,
+        row-gutter: 10pt,
+        align: center,
+
+        heading(level: 2, title),
+        subtitle,
+        img
+      )
+    )
+  )
+}
