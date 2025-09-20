@@ -538,8 +538,8 @@
 
   doc
 
-  pagebreak(weak: true)
-  include "../chapters/pinout.typ"
+  page(include "/chapters/pinout.typ")
+  
   pagebreak(weak: true)
   include "../chapters/tt-multiplexer.typ"
   
@@ -572,10 +572,8 @@
     }
   }
 
-  include "../chapters/team.typ"
-  pagebreak(weak: true)
-  include "../chapters/using-this-datasheet.typ"
-  pagebreak(weak: true)
+  page(include "/chapters/team.typ")
+  page(include "/chapters/using-this-datasheet.typ")
 
   if theme == "classic" or theme == "monochrome" {
     call-to-action-page()
