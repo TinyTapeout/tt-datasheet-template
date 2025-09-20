@@ -5,7 +5,7 @@
 #let _funding_content = state("_funding_content", [])
 #let _funding_alt_title = state("_funding_alt_title", [])
 #let _flip_footer_ordering = state("_flip_footer_ordering", false)
-#let _chip_render_content = state("_chip_render_content", [])
+#let _chip_render_content = state("_chip_render_content", none)
 #let _chip_render_sponsor_text = state("_chip_render_sponsor_text", none)
 #let _chip_render_sponsor_logo = state("_chip_render_sponsor_logo", none)
 
@@ -346,7 +346,7 @@
   if theme == "classic" {
     image("/resources/logos/tt-logo-colourful.png")
     cover-text
-    
+
   } else if theme == "bold" {
     set page(fill: colours.THEME_PLUM) // default fill for bold theme
     set page(fill: theme-override-colour) if theme-override-colour != none
@@ -462,21 +462,24 @@
       }
 
       let content = none
-      if sponsor_grid == none {
+      let content_arr = ()
+
+      if sponsor_grid != none {
+        content_arr.push(sponsor_grid)
+      }
+
+      if qr_grid != none {
+        content_arr.push(qr_grid)
+      }
+
+      if content_arr.len() >= 1 {
         content = grid(
-          columns: 1, rows: 1,
+          columns: content_arr.len(),
+          rows: 1,
           column-gutter: 1em, row-gutter: 1em,
           align: center + horizon,
 
-          qr_grid
-        )
-      } else if sponsor_grid != none {
-        content = grid(
-          columns: 2, rows: 1,
-          column-gutter: 1em, row-gutter: 1em,
-          align: center + horizon,
-          
-          sponsor_grid, qr_grid
+          ..content_arr
         )
       }
 
