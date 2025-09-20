@@ -225,10 +225,9 @@
   pagebreak(weak: true)
 }
 
-#let splash_chapter_page(title, colour, invert-text-colour: false, footer-text: none, additional-content: none) = {
-  set page(fill: colour)
+#let splash_chapter_page(title, page-colour: white, invert-text-colour: false, footer-text: none, additional-content: none) = {
+  set page(fill: page-colour)
   set text(white) if invert-text-colour
-  // set page(footer: _footer(footer-text, invert-text-colour: invert-text-colour))
 
   set page(footer: context {
     _footer(footer-text, invert-text-colour: invert-text-colour, flip-ordering: _flip_footer_ordering.final())
@@ -260,7 +259,7 @@
   pagebreak(weak: true)
 }
 
-#let annotated-qrcode(url, title, tiaoma-args: (:)) = {
+#let annotated-qrcode(url, title, title-colour: black, url-colour: black, tiaoma-args: (:)) = {
   let qr = tiaoma.qrcode(url, options: tiaoma-args)
 
   grid(
@@ -269,7 +268,7 @@
     align: center + horizon,
     row-gutter: 1em,
 
-    title,
+    text(fill: title-colour, title),
     qr,
 
     // make url be the width of the QR code
@@ -278,7 +277,7 @@
         width: measure(qr).width, 
         height: auto, 
         breakable: false, 
-        link(url, text(black, url.trim("https://", at: start))))
+        link(url, text(url-colour, url.trim("https://", at: start))))
     }
   )
 }
@@ -301,6 +300,51 @@
   )
 }
 
+#let call-to-action-page(page-fill: white, body-text-colour: black, qrcode-colour: black) = {
+
+  page(
+    fill: page-fill,
+    footer: none,
+  )[
+    
+    #set text(body-text-colour)
+    #align(center)[
+      #heading(level: 1)[Where is #emph(underline("your")) design?]
+      *Go from idea to chip design in minutes, without breaking the bank.*
+    ]
+
+    Interested and want to get your own design manufactured? Visit our website and
+    check out our educational material and previous submissions!
+
+    #align(center, heading(level: 2, outlined: false)[How?])
+    New to this? Use our basic Wokwi template to see what's possible. If you're ready for more,
+    use our advanced Wokwi template and unlock some extra pins.
+
+    Know Verilog and CocoTB? Get stuck in with our HDL templates.
+
+    #align(center, heading(level: 2, outlined: false)[When?])
+    Multiple shuttles are run per year, meaning you've got an opportunity to manufacture your design
+    at any time.
+
+    #align(center, heading(level: 2, outlined: false)[Stuck? Need help? Want inspiration?])
+    Come chat to us and our community on Discord! Scan the QR code below.
+    
+    #v(1cm)
+    #grid(
+      columns: (1fr, 1fr, 1fr),
+      rows: 1,
+      column-gutter: 1em,
+      align: center,
+      inset: 8pt,
+      fill: white,
+
+      annotated-qrcode("https://tinytapeout.com", "website", tiaoma-args: ("scale": 2.0, "fg-color": qrcode-colour)),
+      annotated-qrcode("https://tinytapeout.com/digital_design", "digital design guide", tiaoma-args: ("scale": 1.75, "fg-color": qrcode-colour)),
+      annotated-qrcode("https://tinytapeout.com/discord", "discord server", tiaoma-args: ("scale": 2.0, "fg-color": qrcode-colour))
+    )
+  ]
+}
+
 #let datasheet(
   shuttle: none,
   repo-link: none,
@@ -312,6 +356,7 @@
   link-disable-colour: true,
   link-override-colour: none,
   chip-viewer-link: none,
+  qrcode-follows-theme: false,
 
   doc
 ) = {
@@ -342,14 +387,19 @@
     ]
   }
 
+  // configure stuff for theme
+  let selected_theme_colour = colours.THEME_PLUM // default fill
+  if theme-override-colour != none {selected_theme_colour = theme-override-colour}
+  let qrcode_colour = black
+  if qrcode-follows-theme and theme == "bold" {qrcode_colour = selected_theme_colour}
+
   // make titlepage
   if theme == "classic" {
     image("/resources/logos/tt-logo-colourful.png")
     cover-text
 
   } else if theme == "bold" {
-    set page(fill: colours.THEME_PLUM) // default fill for bold theme
-    set page(fill: theme-override-colour) if theme-override-colour != none
+    set page(fill: selected_theme_colour)
 
     align(center+horizon)[#image("/resources/logos/tt-logo-white.svg", height: 60%)]
 
@@ -440,11 +490,9 @@
       let qr_grid = none
 
       if chip-viewer-link != none {
-        qr =  tiaoma.qrcode(chip-viewer-link, options: ("scale": 2.0, "fg-color": theme-override-colour))
-      
         qr_grid = annotated-qrcode(
           chip-viewer-link, "online chip viewer",  
-          tiaoma-args: ("scale": 2.0, "fg-color": theme-override-colour)
+          tiaoma-args: ("scale": 2.0, "fg-color": qrcode_colour)
         )
       }
 
@@ -485,13 +533,17 @@
         )
       }
 
-      splash_chapter_page(
-        "Chip Renders", 
-        theme-override-colour, 
-        invert-text-colour: true, 
-        footer-text: shuttle, 
-        additional-content: content
-      )
+      if theme == "bold" {
+        splash_chapter_page(
+          "Chip Renders", 
+          page-colour: selected_theme_colour, 
+          invert-text-colour: true, 
+          footer-text: shuttle, 
+          additional-content: content
+        )
+      } else {
+        splash_chapter_page("Chip Renders", invert-text-colour: false, footer-text: shuttle, additional-content: content)
+      }
       
       chip_renders
     }
@@ -499,13 +551,9 @@
 
   // make project splash page
   if theme == "bold" {
-    if theme-override-colour != none {
-      splash_chapter_page("Projects", theme-override-colour, invert-text-colour: true, footer-text: shuttle)
-    } else {
-      splash_chapter_page("Projects", colours.THEME_PLUM, invert-text-colour: true, footer-text: shuttle)
-    }
+    splash_chapter_page("Projects", page-colour: selected_theme_colour, invert-text-colour: true, footer-text: shuttle)
   } else {
-    splash_chapter_page("Projects", white, footer-text: shuttle)
+    splash_chapter_page("Projects", footer-text: shuttle)
   }
 
   if projects != none {
@@ -553,14 +601,10 @@
   include "../chapters/using-this-datasheet.typ"
   pagebreak(weak: true)
 
-  // make call to action
-  {
-    set page(
-      fill: theme-override-colour,
-      footer: none
-    )
-    set text(white)
-    include "../chapters/make-your-own.typ"
+  if theme == "classic" or theme == "monochrome" {
+    call-to-action-page()
+  } else if theme == "bold" {
+    call-to-action-page(page-fill: selected_theme_colour, body-text-colour: white, qrcode-colour: qrcode_colour)
   }
 }
 
