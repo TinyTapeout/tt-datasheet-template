@@ -623,27 +623,24 @@
       ]
     )
 
-    #context {
-      place(
-        bottom + left,
-        box(
-          fill: colours.ARTWORK_GREY_INFO,
-          inset: 4pt,
-          width: page.width
-        )[
-          #if details.title != "" {
-            strong(details.title)
-          } else {panic("missing title for artwork!")}
-          *$dash.em$*
-          #if details.designer != "" [
-            *Designed by #details.designer.*
-          ]
-          #if details.artist != "" [
-            *Illustrated by #details.artist.*
-          ]
+    #place(
+      bottom + left,
+      box(
+        fill: colours.ARTWORK_GREY_INFO,
+        inset: 4pt
+      )[
+        #if details.title != "" {
+          strong(details.title)
+        } else {panic("missing title for artwork!")}
+        *$dash.em$*
+        #if details.designer != "" [
+          *Designed by #details.designer.*
         ]
-      )
-    }
+        #if details.artist != "" [
+          *Illustrated by #details.artist.*
+        ]
+      ]
+    )
   ]
 }
 
