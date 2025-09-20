@@ -67,6 +67,7 @@
 
 #let callout(type, title, custom-title-colour: none, custom-body-colour: none, doc) = {
 
+  set par(justify: false)
   let title_colour
   let body_colour
 
