@@ -340,11 +340,9 @@
 ) = {
 
   set document(
-    title: [Tiny Tapeout #shuttle Datasheet]
-    // TODO:
-    // author: "?",
-    // description: "?",
-    // keywords: "?"
+    title: [Tiny Tapeout #shuttle Datasheet],
+    author: "Tiny Tapeout & Contributors",
+    description: [The official Tiny Tapeout datasheet for #shuttle.]
   )
 
   set page(paper: "a4", margin: auto)
