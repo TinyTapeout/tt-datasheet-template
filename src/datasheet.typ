@@ -624,24 +624,47 @@
       ]
     )
 
-    #place(
-      bottom + left,
-      box(
-        fill: colours.ARTWORK_GREY_INFO,
-        inset: 4pt
-      )[
-        #if details.title != "" {
-          strong(details.title)
-        } else {panic("missing title for artwork!")}
-        *$dash.em$*
-        #if details.designer != "" [
-          *Designed by #details.designer.*
+    #context {
+
+      let attribution_placement = bottom + left
+      
+      // if even
+      if calc.even(counter(page).get().first()) {
+        // but flipped
+        if _flip_footer_ordering.final() {
+          attribution_placement = bottom + right
+        } else {
+          attribution_placement = bottom + left
+        }
+
+      // if odd
+      } else {
+        if _flip_footer_ordering.final() {
+          attribution_placement = bottom + left
+        } else {
+          attribution_placement = bottom + right
+        }
+      }
+
+      place(
+        attribution_placement,
+        box(
+          fill: colours.ARTWORK_GREY_INFO,
+          inset: 4pt
+        )[
+          #if details.title != "" {
+            strong(details.title)
+          } else {panic("missing title for artwork!")}
+          *$dash.em$*
+          #if details.designer != "" [
+            *Designed by #details.designer.*
+          ]
+          #if details.artist != "" [
+            *Illustrated by #details.artist.*
+          ]
         ]
-        #if details.artist != "" [
-          *Illustrated by #details.artist.*
-        ]
-      ]
-    )
+      )
+    }
   ]
 }
 
