@@ -70,3 +70,8 @@ Callouts may also provide some additional information, and look something like s
   `Information`,
   raw("Silicon melts at 1414°C, and boils at 3265°C. Don't let your chip get too hot!")
 )
+
+== Figures
+Figure numbering within the "Project" chapter is formed by combining the address of the project with the current figure number. For example, the second figure for a project with an address of 256 will be captioned with "Figure 256.2".
+
+The figure numbering outside of the "Project" chapter resumes as normal, being formatted with a simple number, e.g. "Figure 3".

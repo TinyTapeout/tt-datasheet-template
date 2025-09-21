@@ -198,6 +198,11 @@
   danger_callout
 
   set heading(offset: 2)
+  counter(figure.where(kind: image)).update(0)
+  set figure(numbering: this => {
+      numbering("1.1", int(address.trim("-", at: start)), this)
+    }
+  )
   doc
 
   pagebreak(weak: true)
@@ -526,6 +531,7 @@
     projects
   }
 
+  counter(figure.where(kind: image)).update(0)
   doc
 
   page(include "/chapters/pinout.typ")
