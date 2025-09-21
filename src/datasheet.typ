@@ -449,6 +449,11 @@
     }
   }
 
+  show table: this => {
+    set par(justify: false)
+    this
+  }
+
   context {
     let chip_renders = _chip_render_content.final()
 
