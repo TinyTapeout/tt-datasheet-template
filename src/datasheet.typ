@@ -203,38 +203,27 @@
   pagebreak(weak: true)
 }
 
-#let splash_chapter_page(title, page-colour: white, invert-text-colour: false, footer-text: none, additional-content: none) = {
-  set page(fill: page-colour)
-  set text(white) if invert-text-colour
+#let splash-chapter-page(title, page-colour: white, invert-text-colour: false, footer-text: none, additional-content: none) = {
 
-  set page(footer: context {
-    _footer(footer-text, invert-text-colour: invert-text-colour, flip-ordering: _flip_footer_ordering.final())
-  })
+  page(
+    fill: page-colour,
+    footer: context {
+      _footer(footer-text, invert-text-colour: invert-text-colour, flip-ordering: _flip_footer_ordering.final())
+    },
+    {
+      set text(white) if invert-text-colour
 
-  align(center + horizon)[
-    #block(text(size: 100pt, strong(title)))
-  ]
+      // make headings
+      align(center + horizon, block(text(size: 100pt, strong(title))))
+      place(top + left,hide(heading(level:1, title)))
 
-  let h = heading(level: 1, title)
-  context {
-    let h_size = measure(h)
-    place(
-      dy: -h_size.height,
-      hide(h)
-    )
-  }
-
-  if additional-content != none {
-    set text(black)
-
-    place(
-      center + bottom,
-      block(fill: white, inset: 10pt, additional-content)
-    )
-  }
-
-  set page(fill: none)
-  pagebreak(weak: true)
+      // make info box if needed
+      if additional-content != none {
+        set text(black)
+        place(center + bottom, block(fill: white, inset: 10pt, additional-content))
+      }
+    }
+  )
 }
 
 #let annotated-qrcode(url, title, title-colour: black, url-colour: black, tiaoma-args: (:)) = {
@@ -510,7 +499,7 @@
       }
 
       if theme == "bold" {
-        splash_chapter_page(
+        splash-chapter-page(
           "Chip Renders", 
           page-colour: selected_theme_colour, 
           invert-text-colour: true, 
@@ -518,7 +507,7 @@
           additional-content: content
         )
       } else {
-        splash_chapter_page("Chip Renders", invert-text-colour: false, footer-text: shuttle, additional-content: content)
+        splash-chapter-page("Chip Renders", invert-text-colour: false, footer-text: shuttle, additional-content: content)
       }
       
       chip_renders
@@ -529,9 +518,9 @@
   if projects != none {
     // make project splash page
     if theme == "bold" {
-      splash_chapter_page("Projects", page-colour: selected_theme_colour, invert-text-colour: true, footer-text: shuttle)
+      splash-chapter-page("Projects", page-colour: selected_theme_colour, invert-text-colour: true, footer-text: shuttle)
     } else {
-      splash_chapter_page("Projects", footer-text: shuttle)
+      splash-chapter-page("Projects", footer-text: shuttle)
     }
     
     projects
