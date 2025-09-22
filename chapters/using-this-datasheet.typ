@@ -75,3 +75,6 @@ Callouts may also provide some additional information, and look something like s
 Figure numbering within the "Project" chapter is formed by combining the address of the project with the current figure number. For example, the second figure for a project with an address of 256 will be captioned with "Figure 256.2".
 
 The figure numbering outside of the "Project" chapter resumes as normal, being formatted with a simple number, e.g. "Figure 3".
+
+== Updating
+This datasheet is intended to be a living and breathing document. Please update your projects' datasheet with new information if you have it, by creating a pull request against the shuttle repository.
