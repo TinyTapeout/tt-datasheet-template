@@ -103,7 +103,7 @@
 
 #let project(
   title: "Title", 
-  author: "Author", 
+  author: ("Author 1", "Author 2"), 
   repo-link: "!!! missing repository link !!!", 
   description: [!!! Missing description !!!], 
   address: "----", 
@@ -325,7 +325,7 @@
   show-pinouts: "new-frame",
   theme-override-colour: none,
   date: datetime.today(),
-  link-disable-colour: true,
+  link-disable-colour: false,
   link-override-colour: none,
   chip-viewer-link: none,
   qrcode-follows-theme: false,
