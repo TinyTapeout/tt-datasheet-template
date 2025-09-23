@@ -35,15 +35,18 @@
     }
   }
 
+  content
+}
+
+#let styling-set-par(content) = {
   // justify text, except for in tables
   set par(justify: true)
   show table: this => {
     set par(justify: false)
     this
   }
-
   content
-} 
+}
 
 #let _footer(shuttle, invert-text-colour: false, display-pg-as: "1", flip-ordering: false) = {
   // setup
@@ -153,6 +156,7 @@
 ) = {
   
   show: styling;
+  show: styling-set-par;
 
   // make fake heading - this is the one that gets shown in the table of contents
   // which has the nice address marker next to it
@@ -432,6 +436,7 @@
   }
 
   tiling-logo-page()
+  show: styling-set-par;
 
   // make table of contents
   set page(footer: _footer(shuttle, invert-text-colour: false, display-pg-as: "i"))
