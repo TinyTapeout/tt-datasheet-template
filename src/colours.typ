@@ -7,7 +7,7 @@
 #let INFO_STRONG = rgb("#2766ef")
 #let INFO_WEAK = rgb("#4b7be2")
 
-#let LINK_DEFAULT = rgb("#2525df")
+#let LINK_DEFAULT = rgb("#4646cd")
 #let TABLE_GREY = rgb("#2b2b2b")
 
 #let BADGE_TEAL = rgb("#009696")
