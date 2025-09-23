@@ -322,7 +322,7 @@
   repo-link: none,
   theme: "classic",
   projects: none,
-  show-pinouts: "latest",
+  show-pinouts: "new-frame",
   theme-override-colour: none,
   date: datetime.today(),
   link-disable-colour: true,
@@ -545,11 +545,9 @@
   include "../chapters/tt-multiplexer.typ"
   
   if show-pinouts == "caravel" {
-    align(center, pins.caravel)
-    pins.dagger_legend
-  } else if show-pinouts == "latest" {
-    align(center, pins.new_frame)
-    pins.dagger_legend
+    pins.caravel
+  } else if show-pinouts == "new-frame" {
+    pins.new_frame
   } else {
     panic([unknown pinout table referenced (#show-pinouts)])
   }
