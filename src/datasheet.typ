@@ -9,6 +9,42 @@
 #let _chip_render_sponsor_text = state("_chip_render_sponsor_text", none)
 #let _chip_render_sponsor_logo = state("_chip_render_sponsor_logo", none)
 
+#let styling(content) = {
+  set page(paper: "a4", margin: auto)
+  set text(font: "Montserrat", size: 12pt)
+  show raw: set text(font: "Martian Mono", weight: "light")
+
+  show heading.where(level: 1): this => {
+    set text(size: 28pt)
+    this
+    v(0.1cm)
+  }
+  show heading.where(level: 2): set text(size: 22pt)
+  show heading.where(level: 3): set text(size: 16pt)
+
+  // indent numbered and bullet point lists
+  set enum(indent: 1em)
+  set list(indent: 1em)
+
+  // format table so that empty cells show dark grey em dash
+  show table.cell: this => {
+    if this.body == [] {
+        align(center + horizon, text(fill: colours.TABLE_GREY)[$dash.em$])
+    } else {
+      this
+    }
+  }
+
+  // justify text, except for in tables
+  set par(justify: true)
+  show table: this => {
+    set par(justify: false)
+    this
+  }
+
+  content
+} 
+
 #let _footer(shuttle, invert-text-colour: false, display-pg-as: "1", flip-ordering: false) = {
   // setup
   set text(size: 10pt)
@@ -116,6 +152,8 @@
   doc
 ) = {
   
+  show: styling;
+
   // make fake heading - this is the one that gets shown in the table of contents
   // which has the nice address marker next to it
   let fake_heading = block(      
@@ -339,9 +377,7 @@
     description: [The official Tiny Tapeout datasheet for #shuttle. Template by Kristaps Jurkans (bluesky/\@krisj.dev)]
   )
 
-  set page(paper: "a4", margin: auto)
-  set text(font: "Montserrat", size: 12pt)
-  show raw: set text(font: "Martian Mono", weight: "light")
+  show: styling;
 
   let date_str = date.display("[month repr:long] [day padding:none], [year]")
 
@@ -397,14 +433,6 @@
 
   tiling-logo-page()
 
-  show heading.where(level: 1): this => {
-    set text(size: 28pt)
-    this
-    v(0.1cm)
-  }
-  show heading.where(level: 2): set text(size: 22pt)
-  show heading.where(level: 3): set text(size: 16pt)
-
   // make table of contents
   set page(footer: _footer(shuttle, invert-text-colour: false, display-pg-as: "i"))
   counter(page).update(1)
@@ -428,30 +456,10 @@
     shuttle, display-pg-as: "1", flip-ordering: _flip_footer_ordering.final()
   )})
 
-  set par(justify: true)
-
   if doc != [] {
       pagebreak(weak: true)
       // NOTE: disabled because the odd-even footer flipping stops working properly
       counter(page).update(1)
-  }
-
-  // indent numbered and bullet point lists
-  set enum(indent: 1em)
-  set list(indent: 1em)
-
-  // format table so that empty cells show dark grey em dash
-  show table.cell: this => {
-    if this.body == [] {
-        align(center + horizon, text(fill: colours.TABLE_GREY)[$dash.em$])
-    } else {
-      this
-    }
-  }
-
-  show table: this => {
-    set par(justify: false)
-    this
   }
 
   context {
