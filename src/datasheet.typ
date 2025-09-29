@@ -615,6 +615,12 @@
   let details = art_manifest.at(id)
   let path_suffix = art_manifest.at("PATH_SUFFIX")
 
+  if details.title == "" {
+    panic("missing title for artwork!")
+  }
+
+  let art_heading = [#box(baseline: 0.4em, badge(colours.BADGE_PURPLE, strong(`Artwork`))) #details.title]
+
   set text(fill: white, size: 10pt)
 
   page(
@@ -622,6 +628,8 @@
     margin: 0pt,
     footer: none,
   )[
+    #place(top, heading(level: 2, art_heading, outlined: true, bookmarked: false))
+    #place(top, heading(level: 2, outlined: false, bookmarked: true)[(Artwork) #details.title])
     #align(
       center + horizon,
       
@@ -663,9 +671,7 @@
           fill: colours.ARTWORK_GREY_INFO,
           inset: 4pt
         )[
-          #if details.title != "" {
-            strong(details.title)
-          } else {panic("missing title for artwork!")}
+          #strong(details.title)
           *$dash.em$*
           #if details.designer != "" [
             *Designed by #details.designer.*
