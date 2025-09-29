@@ -14,7 +14,7 @@
 #let BADGE_MUTED_TEAL = rgb("#007474")
 #let BADGE_BLUE = rgb("#3e71e7")
 #let BADGE_PINK = rgb("#db44b2")
-#let BADGE_PURPLE = rgb("#a041ff")
+#let BADGE_PURPLE = rgb("#a952ff")
 
 #let THEME_PLUM = rgb("#9c6fb6")
 #let THEME_TT06_PINK = rgb("#ec789d")
@@ -23,4 +23,4 @@
 
 #let UNUSED_GOLD = rgb("#ffc936")
 #let UNUSED_PURPLE_1 = rgb("#9123ff")
-#let UNUSED_PURPLE_2 = rgb("#a952ff")
+#let UNUSED_PURPLE_2 = rgb("#a041ff") 
