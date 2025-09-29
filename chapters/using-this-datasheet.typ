@@ -18,7 +18,7 @@ In general, each project should contain:
 - A pinout table for both digital & analog designs
 
 == Badges
-This datasheet uses "badges" to quickly convey some information about the project. A selection of these badges are available below.
+This datasheet uses "badges" to quickly convey some information about the content. These badges are explained in the table below.
 
 #let example_address_badge = box(baseline: 0.4em, badge(colours.BADGE_TEAL, strong(raw("-123"))))
 #let example_microtile_addr_badge = box(baseline: 0.4em, badge(colours.BADGE_TEAL, strong(raw("-423/2"))))
@@ -29,12 +29,12 @@ This datasheet uses "badges" to quickly convey some information about the projec
 #let example_proj_analog = box(baseline: 0.4em, badge(colours.BADGE_PINK, strong(raw("Analog Project"))))
 #let example_medium_danger = box(baseline: 0.4em, badge(colours.WARNING_STRONG, strong(raw("Medium Danger"))))
 #let example_high_danger = box(baseline: 0.4em, badge(colours.DANGER_STRONG, strong(raw("High Danger"))))
+#let example_artwork = box(baseline: 0.4em, badge(colours.BADGE_PURPLE, strong(raw("Artwork"))))
 
 
 
 #table(
   columns: 2,
-  rows: 4,
   inset: 6pt,
   align: (center + horizon, left),
 
@@ -42,6 +42,7 @@ This datasheet uses "badges" to quickly convey some information about the projec
     [Badge], [Description]
   ),
 
+  example_artwork, [Showcases artwork from our community.],
   [#example_address_badge \ #example_microtile_addr_badge], [Mux address of the project, in decimal. For microtile designs, their sub-address is placed after the forward slash. In this example, it would be `2`.],
   example_clock_badge, [Clock frequency of the project. May be truncated from actual value or omitted completely.],
   [#example_proj_hdl \ #example_proj_wokwi \ #example_proj_analog], [Project type, indicating if it was made with a HDL, Wokwi, or if it is analog.],
@@ -76,5 +77,5 @@ Figure numbering within the "Project" chapter is formed by combining the address
 
 The figure numbering outside of the "Project" chapter resumes as normal, being formatted with a simple number, e.g. "Figure 3".
 
-== Updating
+== Updates
 This datasheet is intended to be a living and breathing document. Please update your projects' datasheet with new information if you have it, by creating a pull request against the shuttle repository.
