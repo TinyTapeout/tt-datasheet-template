@@ -409,7 +409,10 @@
     cover-text
 
   } else if theme == "bold" {
-    set page(fill: selected_theme_colour)
+    set page(
+      background: image("/resources/backgrounds/colourful-background-gds-o10-bw.png", height: 100%),
+      fill: selected_theme_colour
+    )
 
     align(center+horizon)[#image("/resources/logos/tt-logo-white.svg", height: 60%)]
 
