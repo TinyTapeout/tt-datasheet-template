@@ -9,13 +9,13 @@ Projects are ordered by their mux address, in ascending order. Documentation is 
 repositories and are merged into the final shuttle once the deadline is reached.
 
 In general, each project should contain:
-- the user-provided title & a list of authors
-- a link to the GitHub repository used for submission
-- a link to the Wokwi project (if applicable)
-- a "How it works" section
-- a "How to test" section
-- an "External hardware" section (if applicable)
-- a pinout table for both digital & analog designs
+- The user-provided title & a list of authors
+- A link to the GitHub repository used for submission
+- A link to the Wokwi project (if applicable)
+- A "How it works" section
+- A "How to test" section
+- An "External hardware" section (if applicable)
+- A pinout table for both digital & analog designs
 
 == Badges
 This datasheet uses "badges" to quickly convey some information about the project. A selection of these badges are available below.

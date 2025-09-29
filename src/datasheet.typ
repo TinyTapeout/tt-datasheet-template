@@ -352,9 +352,9 @@
       inset: 8pt,
       fill: white,
 
-      annotated-qrcode("https://tinytapeout.com", "website", tiaoma-args: ("scale": 2.0, "fg-color": qrcode-colour)),
-      annotated-qrcode("https://tinytapeout.com/digital_design", "digital design guide", tiaoma-args: ("scale": 1.75, "fg-color": qrcode-colour)),
-      annotated-qrcode("https://tinytapeout.com/discord", "discord server", tiaoma-args: ("scale": 2.0, "fg-color": qrcode-colour))
+      annotated-qrcode("https://tinytapeout.com", "Website", tiaoma-args: ("scale": 2.0, "fg-color": qrcode-colour)),
+      annotated-qrcode("https://tinytapeout.com/digital_design", "Digital design guide", tiaoma-args: ("scale": 1.75, "fg-color": qrcode-colour)),
+      annotated-qrcode("https://tinytapeout.com/discord", "Discord server", tiaoma-args: ("scale": 2.0, "fg-color": qrcode-colour))
     )
   ]
 }
@@ -479,7 +479,7 @@
 
       if chip-viewer-link != none {
         qr_grid = annotated-qrcode(
-          chip-viewer-link, "online chip viewer",  
+          chip-viewer-link, "Online chip viewer",  
           tiaoma-args: ("scale": 2.0, "fg-color": qrcode_colour)
         )
       }
