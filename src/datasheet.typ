@@ -364,7 +364,7 @@
   repo-link: none,
   theme: "classic",
   projects: none,
-  show-pinouts: "new-frame",
+  show-pinouts: "openframe",
   theme-override-colour: none,
   date: datetime.today(),
   link-disable-colour: false,
@@ -562,8 +562,8 @@
   
   if show-pinouts == "caravel" {
     pins.caravel
-  } else if show-pinouts == "new-frame" {
-    pins.new_frame
+  } else if show-pinouts == "openframe" {
+    pins.openframe
   } else {
     panic([unknown pinout table referenced (#show-pinouts)])
   }

@@ -57,7 +57,7 @@
   [$dagger$ Internally, there's no difference between `clk`, `rst_n` and `ui_in` pins. They are all just bits in the `pad_ui_in` bus. However, we use different names to make it easier to understand the purpose of each signal.]
 }
 
-#let new_frame = {
+#let openframe = {
   align(center, 
     table(
       columns: 3,
