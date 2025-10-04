@@ -242,7 +242,7 @@
   set heading(offset: 2)
   counter(figure.where(kind: image)).update(0)
   set figure(numbering: this => {
-      numbering("1.1", int(address.trim("-", at: start)), this)
+      [#address.trim("-", at: start).#this]
     }
   )
   doc
