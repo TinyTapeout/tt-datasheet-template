@@ -18,6 +18,7 @@
 
 #let THEME_PLUM = rgb("#9c6fb6")
 #let THEME_TT06_PINK = rgb("#ec789d")
+#let THEME_SKY_BLUE = rgb("#0c66ab")
 
 #let ARTWORK_GREY_INFO = rgb("#2b2b2bda")
 
