@@ -2,15 +2,9 @@
 name = "tt-datasheet"
 version = "1.0.0"
 authors = ["Kristaps Jurkans <kris.jurkans@gmail.com>"]
-license = "?"
-description = "?"
+license = "Apache-2.0"
+description = "Tiny Tapeout Datasheet Template"
 repository = "?"
 keywords = ["TinyTapeout"]
-#categories = ["thesis"]
 entrypoint = "src/datasheet.typ"
 exclude = ["images"]
-
-[template]
-path = "template"
-entrypoint = "main.typ"
-#thumbnail = "images/titlepage.png"
