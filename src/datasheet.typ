@@ -288,7 +288,7 @@
     // make url be the width of the QR code
     context {
       block(
-        width: measure(qr).width, 
+        width: measure(qr).width + 1cm, 
         height: auto, 
         breakable: false, 
         link(url, text(url-colour, url.trim("https://", at: start))))
